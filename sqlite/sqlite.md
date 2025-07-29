@@ -55,6 +55,28 @@ with open("sqlite.db", "w") as f:
 @Pyodide.exec
 @end
 
+@style
+.flex-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows the items to wrap as needed */
+    align-items: stretch;
+    gap: 20px; /* Adds both horizontal and vertical spacing between items */
+}
+
+.flex-child { 
+    flex: 1;
+    margin-right: 20px; /* Adds space between the columns */
+}
+
+@media (max-width: 600px) {
+    .flex-child {
+        flex: 100%; /* Makes the child divs take up the full width on slim devices */
+        margin-right: 0; /* Removes the right margin */
+    }
+}
+@end
+
+
 -->
 
 # SQLite
@@ -78,14 +100,81 @@ As long as you are not working across major versions, i.e. SQLite 2.x vs SQLite 
 ## Python and database access
 
 Python has significant benefits for database access over older languages such a Java, C or C++.
-In these languages you would typically need to use a library to access the database and the functionality of said library would vary from database to database.
+In those languages you would typically need to use an external library to access the database and the functionality of said library would vary from database to database.
 
-In Python, Guido van Rossum, the creator of Python, has made it a priority to ensure that Python has a standard library for database access. This means that you can use the same code to access different databases, such as SQLite, MySQL, PostgreSQL, and others.
+In Python, Guido van Rossum, the creator of Python, has made it a priority to ensure that Python has a standard interface for database access. This means that you can use the same code to access different databases, such as SQLite, MySQL, PostgreSQL, and others.
 This is done through the [Python Database API Specification](https://www.python.org/dev/peps/pep-0249/), which defines a standard interface for database access in Python. This means that you can use the same code to access different databases, and you can easily switch between databases without having to change your code.
+
 
 ## SQLite in Python
 
-To use SQLite in Python, you can use the `sqlite3` module. This module provides a simple and easy-to-use interface for working with SQLite databases.
+To use SQLite in Python, you use the `sqlite3` module. 
+This module provides a simple and easy-to-use interface for working with SQLite databases.
+
+The main difference between accessing a SQLite database and a client-server database such as MySQL or PostgreSQL is that you do not need to set up a server to run the database. Instead, you can create a SQLite database file and access it directly from your Python code.
+
+<section class="flex-container">
+
+<div class="flex-child" style="min-width: 300px;">
+
+**Accessing a MySQL database in Python**
+
+```python
+import mysql.connector
+
+details = {'user':     'username', 
+           'password': 'password', 
+           'host':     'url_or_ip_address', 
+           'database': 'database_name'}
+
+# create a connection to the database
+con = mysql.connector.connect(**details)
+cur = con.cursor()
+
+# execute a query
+cur.execute("SELECT * FROM table_name")
+
+# fetch the results
+for row in cur:
+    print(row)
+
+# close the connection
+con.close()
+```
+
+</div>
+
+<div class="flex-child" style="min-width: 300px;">
+
+**Accessing a SQLite database in Python**
+
+```python
+import sqlite3
+
+
+
+
+
+
+# open the database files
+con = sqlite3.connect('sqlite.db')
+cur = con.cursor()
+
+# execute a query
+cur.execute("SELECT * FROM table_name")
+
+# fetch the results
+for row in cur:
+    print(row)
+
+# close the file
+con.close()
+```
+
+</div>
+
+</section>
+
 
 
 
@@ -127,7 +216,7 @@ import sqlite3
 with sqlite3.connect("sqlite.db") as con:
     cur = con.cursor()
     cur.execute("SELECT * FROM users;")
-    for row in cur.fetchall():
+    for row in cur:
         print(row)
 ```
 @Pyodide.eval
