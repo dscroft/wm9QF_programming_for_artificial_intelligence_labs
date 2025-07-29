@@ -25,7 +25,7 @@ Previous versions:
 ## Overview
 @comment
 
-**Is this module right for me?** @long_description
+**Why is this content relevant?** @long_description
 
 **Estimated time to completion:** @estimated_time_in_minutes minutes
 
