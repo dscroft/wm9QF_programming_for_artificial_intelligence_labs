@@ -72,6 +72,7 @@ send.html(`<a href="${surveyURL}")">our brief survey</a>`)
 
 Credit for the original versions and origin of these materials is given to the [Data and Analytics for Research Training (DART) Program](https://arcus.github.io/education_modules/) and the [Children's Hospital of Philadelphia (CHOP) Research Institute](https://www.research.chop.edu/).
 
+<!-- style="max-width: 300px; margin: auto;" -->
 ![](https://github.com/arcus/education_modules/raw/main/assets/media/chop-logo.svg)
 
 @end
