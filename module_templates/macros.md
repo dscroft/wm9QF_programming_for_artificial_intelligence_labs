@@ -9,8 +9,6 @@ narrator: UK English Female
 title: Module Macros
 comment:  This is placeholder module to save macros used in other modules.
 
-logo: ../assets/media/wmg-logo.svg
-
 @version_history 
 
 Previous versions: 
