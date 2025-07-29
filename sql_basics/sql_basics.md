@@ -10,8 +10,11 @@ language: en
 narrator: US English Male
 mode: Textbook
 title: SQL Basics
+
 comment:  Structured Query Language, or SQL, is a relational database solution that has been around for decades.  Learn how to do basic SQL queries on single tables, by using code, hands-on.
-long_description: Do you want to learn basic Structured Query Language (SQL) either to understand concepts or prepare for access to a relational database?  This module will give you hands on experience with simple queries using keywords including SELECT, WHERE, FROM, DISTINCT, and AS.  We'll also briefly cover working with empty (NULL) values using IS NULL and IS NOT NULL.  This module is appropriate for people who have little or no experience in SQL and are ready to practice with real queries.
+
+long_description: Structured Query Language (SQL) is the defacto standard for working with relational databases. This session will give you hands on experience with simple queries using keywords including SELECT, WHERE, FROM, DISTINCT, and AS.  We'll also briefly cover working with empty (NULL) values using IS NULL and IS NOT NULL. 
+
 estimated_time_in_minutes: 60
 
 @pre_reqs
@@ -160,10 +163,10 @@ product_type = "FRUIT";
 <!-- data-readOnly="true" -->
 ```sql
 SELECT
-  price
-  ,best_by_date
-  ,sale_pct
-  ,quantity
+  price,
+  best_by_date,
+  sale_pct,
+  quantity
 FROM products
 WHERE product_type = "FRUIT";
 ```
@@ -182,30 +185,6 @@ Here are our (opinionated but not necessarily "right") style suggestions.  These
 3) **Use indentation to clarify the various sections of your query.**  Indenting the list of columns below a SELECT statement is a way of subordinating those lines to the SELECT, subtly indicating that those lines are a continuation of the SELECT statement.  A new line that isn't indented (say, a FROM statement) shows that the SELECT part of the query is over.
 
 4) **Use "dot notation"**, which we'll talk about in the next section.  Dot notation means adding more information about your data, for example, by including the table name the column comes from.  This practice will prepare you for using multiple data sources in your queries.
-
-5) **Use a comma-first style.**  This one can be a little jarring at first, but it does have real advantages, especially if you end up doing SQL for more than a few hours a week.  In a list of length n, don't put the comma **after** items 1 through n-1.  Rather, put the comma **before** items 2 through n.  
-
-<div class = "options">
-<b style="color: rgb(var(--color-highlight));">Another option</b><br>
-
-As long as you put a comma between the columns you are requesting (but not after the last column), your syntax is valid.  However, we propose a "comma-first" syntax.  To explain what comma-first syntax looks like, here are two shopping lists.  One is in comma-first style, where the first item is lacking a comma, and the other is comma-last, where the last item is missing a comma:
-
-
-| comma-first (or leading comma) | comma-last (or trailing comma) |
-| --- | ---- |
-| apples | apples, |
-| ,oranges | oranges, |
-| ,lettuce | lettuce, |
-| ,olives  | olives |
-
-
-A comma-first stance is not uncontroversial, and some people find this style distracting or hard to understand.  If you hate it, you don't have to use it.  But first, allow us to share our rationale. Our thinking behind proposing a "comma-first" notation is based in ease of editing and improving your code as you go:
-
-* **Commas line up.** In the comma-first example, it's easy to spot if you've left a comma out, because they all line up on the same character.  Not so in the comma-last version.  A missing comma will cause your SQL to not execute, and that's annoying and costs you extra time to track down which is the offending line.
-* **It's easy to rearrange columns 2-n.** In SQL we often try a short query with just a few fields, then add a few more, then maybe rearrange their order, and finally delete the columns we don't need.  Usually, the first item in a list of columns is something of central importance, while the others in the list have a higher likelihood to be ones you may decide you don't need, or will change the order of.  Because you rarely touch the first item in a list but more frequently change the last item, it's less likely that you'll introduce a missing (or extra) comma using a comma-first paradigm as compared to the comma-last style.
-* **You won't accidentally add a comma after your last item.** The reasoning is the same as above.  Anyone who's done SQL for very long has accidentally added a comma after the last item and spent a few minutes scratching their head trying to figure out what the error is.
-
-</div>
 
 Now that we've got you thinking about style, let's move on to the substance of SQL and work with SELECT and FROM.
 
@@ -291,11 +270,11 @@ Go ahead and run this code by clicking the execute button.  How are your results
 
 ```sql
 SELECT
-  patients.id
-  ,patients.sex
-  ,patients.race
-  ,patients.ethnicity
-  ,patients.state
+  patients.id,
+  patients.sex,
+  patients.race,
+  patients.ethnicity,
+  patients.state
 FROM alasql.patients;
 ```
 @AlaSQL.eval("#dataTable7c")
@@ -329,8 +308,8 @@ Then, if you're up for a challenge, change the code to find out what unique comb
 
 ```sql
 SELECT DISTINCT
-  patients.sex
-  ,patients.ethnicity
+  patients.sex,
+  patients.ethnicity
 FROM alasql.patients;
 ```
 @AlaSQL.eval("#dataTable8a")
@@ -359,8 +338,8 @@ Try:
 
 ```sql
 SELECT DISTINCT
-  patients.race
-  ,patients.ethnicity
+  patients.race,
+  patients.ethnicity
 FROM alasql.patients;
 ```
 
@@ -464,11 +443,11 @@ The code block below provides an example of each of these styles of commenting:
 ```sql
 /* This is a simple demographics query*/
 SELECT
-  patients.id         --unique patient identifier.
-  ,patients.sex       --patient sex {'M', 'F'}
-  ,patients.race      --patient race
-  ,patients.ethnicity --patient ethnicity {'hispanic', 'nonhispanic'}
-  ,patients.state     --full name of patients state of residence.
+  patients.id,        --unique patient identifier.
+  patients.sex,       --patient sex {'M', 'F'}
+  patients.race,      --patient race
+  patients.ethnicity, --patient ethnicity {'hispanic', 'nonhispanic'}
+  patients.state      --full name of patients state of residence.
 FROM alasql.patients;
 
 
@@ -756,12 +735,12 @@ When listing columns in the `ORDER BY` statement you can specify that they be so
 
 ```sql
 SELECT DISTINCT
-  patients.county
-  ,patients.ethnicity
+  patients.county,
+  patients.ethnicity
 FROM alasql.patients
 ORDER BY
-  patients.county ASC
-  ,patients.ethnicity DESC;
+  patients.county ASC,
+  patients.ethnicity DESC;
 ```
 @AlaSQL.eval("#dataTable14a")
 
@@ -780,12 +759,12 @@ Try:
 
 ```sql
 SELECT DISTINCT
-  patients.county
-  ,patients.ethnicity
+  patients.county,
+  patients.ethnicity
 FROM alasql.patients
 ORDER BY
-  patients.ethnicity ASC
-  ,patients.county ASC;
+  patients.ethnicity ASC,
+  patients.county ASC;
 ```
 
 </details>
@@ -842,11 +821,11 @@ In the example below, we can see aliasing being used to rename the `patient` tab
 
 ```sql
 SELECT
-  p.id AS unique_patient_id
-  ,p.sex
-  ,p.race
-  ,p.ethnicity
-  ,p.state AS state_name
+  p.id AS unique_patient_id,
+  p.sex,
+  p.race,
+  p.ethnicity,
+  p.state AS state_name
 FROM alasql.patients AS p;
 ```
 @AlaSQL.eval("#dataTable16a")
