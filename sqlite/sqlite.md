@@ -177,6 +177,88 @@ con.close()
 
 
 
+## Cursors
+
+## Performance
+
+Regardless of the database that you are using, the performance of your code will depend on how you write your queries and how you choose to access the results.
+
+For example, if you are using a SQLite database and you are accessing a large number of rows, it is more efficient to use the `fetchall()` method to retrieve all the rows at once, rather than using a loop to retrieve each row one at a time.
+
+<section class="flex-container">
+<div class="flex-child" style="min-width: 300px;">
+
+**fetchall**
+
+Acquires the full set of results from the query in one go.
+This is the most fastest way to retrieve the results from a query, but means that you are storing all of the data in memory at once.
+
+It is entirely possible to run out of memory if working with a large dataset and so this approach should be used with caution.
+
+</div>
+<div class="flex-child" style="min-width: 300px;">
+```python
+cur.execute("SELECT * FROM table_name;")
+rows = cur.fetchall()
+for row in rows:
+    print(row)
+```
+</div>
+</section>
+
+----------------------------
+
+<section class="flex-container">
+<div class="flex-child" style="min-width: 300px;">
+
+**fetchmany**
+
+Acquires a specified number of results from the query in one go.
+This is a good compromise between performance and memory usage, as it allows you to retrieve multiple rows at once without using too much memory.
+
+</div>
+<div class="flex-child" style="min-width: 300px;">
+```python
+cur.execute("SELECT * FROM users;")
+while rows:=cur.fetchmany(10):
+    print( f"{len(rows)} rows fetched:")
+    for row in rows:
+        print(row)
+```
+</div>
+</section>
+
+----------------------------
+
+<section class="flex-container">
+<div class="flex-child" style="min-width: 300px;">
+
+**fetchone**
+
+Acquires a single row from the query at a time.
+This is the slowest way to retrieve the results from a query, as it requires a round trip to the database for each row.
+However, it is the most memory-efficient way to retrieve the results, as it only retrieves one row at a time.
+It is also faster than the other methods in the sense that the time to acquire the first row is usually much less, even while the time to acquire all rows is longer.
+
+This is also the method that is used by default when iterating over a cursor, i.e. `for row in cursor:`.
+
+</div>
+<div class="flex-child" style="min-width: 300px;">
+```python
+cur.execute("SELECT * FROM table_name;")
+while row:=cur.fetchone():
+    print(row)
+```
+
+```python
+cur.execute("SELECT * FROM table_name;")
+for row in cur:
+    print(row)
+```
+</div>
+</section>
+
+
 
 
 
@@ -216,7 +298,7 @@ import sqlite3
 with sqlite3.connect("sqlite.db") as con:
     cur = con.cursor()
     cur.execute("SELECT * FROM users;")
-    for row in cur:
+    while row:=cur.fetchone():
         print(row)
 ```
 @Pyodide.eval
