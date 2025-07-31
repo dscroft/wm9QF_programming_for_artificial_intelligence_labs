@@ -79,7 +79,33 @@ with open("sqlite.db", "w") as f:
 
 -->
 
-# SQLite
+# Python and databases
+
+Accessing databases from a programming language is essential for building dynamic, data-driven applications. Here are some key reasons why this is relevant and important:
+
+- **Data Storage and Retrieval:** Most applications need to store, retrieve, and manipulate data efficiently. Databases provide a structured way to manage large volumes of data, while programming languages allow you to interact with this data programmatically.
+
+- **Automation:** By accessing databases through code, you can automate repetitive tasks such as data entry, updates, reporting, and analytics, reducing manual effort and minimizing errors.
+
+- **Integration:** Applications often need to combine data from multiple sources or systems. Programming languages enable you to connect to different databases, integrate data, and build unified solutions.
+
+- **Scalability and Flexibility:** Code-based access allows you to scale your application, handle complex business logic, and adapt to changing requirements more easily than manual database management.
+
+- **Security and Validation:** Programming languages provide mechanisms to validate user input, enforce business rules, and implement security controls before interacting with the database, helping to protect sensitive data.
+
+- **User Interaction:** Most modern applications have user interfaces that require real-time interaction with data. Accessing databases from code enables features like search, filtering, and personalized content.
+
+In summary, accessing databases from a programming language bridges the gap between raw data storage and practical, interactive applications, making it a fundamental skill for developers.
+
+## Python
+
+Python has significant benefits for database access over older languages such a Java, C or C++.
+In those languages you would typically need to use an external library to access the database and the functionality of said library would vary from database to database.
+
+In Python, Guido van Rossum, the creator of Python, has made it a priority to ensure that Python has a standard interface for database access. This means that you can use the same code to access different databases, such as SQLite, MySQL, PostgreSQL, and others.
+This is done through the [Python Database API Specification](https://www.python.org/dev/peps/pep-0249/), which defines a standard interface for database access in Python. This means that you can use the same code to access different databases, and you can easily switch between databases without having to change your code.
+
+## SQLite
 
 SQLite is a lightweight, serverless SQL database engine that is widely used for local data storage in applications. It is particularly useful for mobile and desktop applications, as well as for small to medium-sized web applications. 
 
@@ -97,16 +123,7 @@ As long as you are not working across major versions, i.e. SQLite 2.x vs SQLite 
 
 </div>
 
-## Python and database access
-
-Python has significant benefits for database access over older languages such a Java, C or C++.
-In those languages you would typically need to use an external library to access the database and the functionality of said library would vary from database to database.
-
-In Python, Guido van Rossum, the creator of Python, has made it a priority to ensure that Python has a standard interface for database access. This means that you can use the same code to access different databases, such as SQLite, MySQL, PostgreSQL, and others.
-This is done through the [Python Database API Specification](https://www.python.org/dev/peps/pep-0249/), which defines a standard interface for database access in Python. This means that you can use the same code to access different databases, and you can easily switch between databases without having to change your code.
-
-
-## SQLite in Python
+### SQLite in Python
 
 To use SQLite in Python, you use the `sqlite3` module. 
 This module provides a simple and easy-to-use interface for working with SQLite databases.
@@ -172,18 +189,210 @@ con.close()
 ```
 
 </div>
-
 </section>
 
 
+<div class = "important">
+<b style="color: rgb(var(--color-highlight));">Important note</b><br>
+
+In sqlite if you specify a file that does not exist it will be created for you.
+The newly created database will be empty, i.e. it will not contain any tables or data.
+
+Therefore if you want to ensure that you are working with an existing database, you should check that the file exists before trying to open it. E.g. using the `os.path.exists()` function.
+
+</div>
+
+
+### :memory: databases
+
+One piece of functionality posessed by SQLite that is not typical of other databases is the ability to create an in-memory database.
+This means that the database is created in RAM and does not persist to disk.
+
+Scenarios where this might be useful include:
+
+- Testing code that interacts with a database, without having to create a file on disk.
+- Prototyping a database schema or queries without having to create a file on disk.
+- Storing temporary data that is only needed for the duration of a program's execution, such as caching results or storing intermediate data.
+- Running a database in a web application that does not require persistent storage, such as a simple web app that only needs to store data for the duration of a user's session.
+
+To create an in-memory database, you can use the special database name `:memory:` when connecting to the database instead of a filename.
+
+```python
+con = sqlite3.connect(":memory:")
+```
+
+
+
+# Python Database API
+
+As discussed previously, the standard interface for database access in Python means that although the examples given may use SQLite, identical code can be used to access other databases such as MySQL or PostgreSQL, with only minor changes to the connection details.
 
 ## Cursors
+
+## Query gotchas
+
+When writing SQL queries in Python, there are a few common gotchas that you should be aware of. These can lead to errors or unexpected behavior if not handled correctly.
+
+### " and '
+
+When writing SQL queries in Python, you will need to be careful about how you use quotes.
+In SQL, you can use either single quotes (`'`) or double quotes (`"`) to define string literals.
+However, in Python, you also can also use single and double quotes to define string literals.
+
+The problem occurs when you are defining a string literal in python containing a SQL query, and that query contains also string literals.
+
+For example:
+
+```python 
+query = "SELECT * FROM products WHERE product_type = "FRUIT";"
+
+query = 'SELECT * FROM products WHERE product_type = 'FRUIT';'
+```
+
+There are a few solutions to this problem:
+
+**Different quotes**
+
+Use single quotes for the SQL query and double quotes for the string literal in Python, or vice versa.
+
+```python
+query = "SELECT * FROM products WHERE product_type = 'FRUIT';"
+
+query = 'SELECT * FROM products WHERE product_type = "FRUIT";'
+```
+
+----------------------
+
+**Escape quotes**
+
+You can escape the quotes in the SQL query using a backslash (`\`).
+This works for both single and double quotes.
+
+```python
+query = "SELECT * FROM products WHERE product_type = \"FRUIT\";"
+```
+
+-----------------------
+
+**Triple quotes**
+
+You can use triple quotes to define a multi-line string in Python, which allows you to use both single and double quotes without escaping them.
+
+```python
+query = """SELECT * FROM products WHERE product_type = "FRUIT";"""
+```
+
+
+### Multiline queries
+
+When working with SQL queries, it is often useful to be able to write multiline queries for readability and maintainability.
+
+<section class="flex-container">
+<div class="flex-child" style="min-width: 300px;">
+**This:**
+
+```sql
+SELECT
+  price,
+  best_by_date,
+  sale_pct,
+  quantity
+FROM products
+WHERE product_type = "FRUIT";
+```
+</div>
+<div class="flex-child" style="min-width: 300px;">
+**Not this:**
+
+```sql
+select price, best_by_date, sale_pct, quantity from products where product_type = "FRUIT";
+```
+</div>
+</section>
+
+To write multiline queries in Python, you will need to define a multi-line string. 
+In Python this is done using triple quotes.
+
+```python
+query = """
+SELECT
+  price,
+  best_by_date,
+  sale_pct,
+  quantity
+FROM products
+WHERE product_type = "FRUIT";"""
+
+cur.execute(query)
+```
+
+### String concatenation
+
+When writing SQL queries in Python, especially if you are writing queries that rely on user input, you may be tempted to assemble your SQL queries using string concatenation.
+
+![](media/Season_18_Episode_13_GIF_by_The_Simpsons.gif)
+
+Using string concatenation to build SQL queries is a terrible idea, as it leaves your code open to SQL injection attacks.
+This concept will be explored in more detail in the [SQL Injection](https://liascript.github.io/course/?https://dscroft.github.io/liascript_sqli/lia.md) activity.
+
+There are a *very* small number of cases where string concatenation could be acceptable, such as when you are writing a query that does not rely directly on user input. 
+But for the most part string concatenation for SQL query creation should be viewed as an actively dangerous anti-pattern and is to be avoided.
+
+----------------------
+
+You should use instead use parameterized queries, these allow you to safely pass user input to your SQL queries without the risk of SQL injection attacks.
+
+`?` is used as a placeholder for the parameter in the query and will be replaced with the provided value when the query is executed.
+
+**This:**
+
+```python
+query = "SELECT * FROM products WHERE product_type = ?;"
+cur.execute(query, ("FRUIT",))
+```
+
+**Not this:**
+
+```python
+search_term = "FRUIT"
+
+query = "SELECT * FROM products WHERE product_type = '" + search_term + "';"
+cur.execute(query)
+
+# or
+
+query = f"SELECT * FROM products WHERE product_type = '{search_term}';"
+cur.execute(query)
+```
+
+**Never, *ever*, under *any* circumstances, this:**
+
+```python
+search_term = input("Enter a search term: ")
+
+query = "SELECT * FROM products WHERE product_type = '" + search_term + "';"
+cur.execute(query)
+```
+
+<div class = "important">
+<b style="color: rgb(var(--color-highlight));">Important note</b><br>
+This is one place where code may differ between databases.
+
+The specific placeholder syntax is database-specific and not part of the Python Database API Specification.
+You will need to check the documentation for the specific database you are using to see what placeholder syntax is supported.
+
+For example, MySQL uses `%s` as a placeholder, while SQLite uses `?`.
+
+However all databases should support the use of parameterized queries, so you should always use this approach when writing SQL queries in Python.
+</div>
+
+
 
 ## Performance
 
 Regardless of the database that you are using, the performance of your code will depend on how you write your queries and how you choose to access the results.
 
-For example, if you are using a SQLite database and you are accessing a large number of rows, it is more efficient to use the `fetchall()` method to retrieve all the rows at once, rather than using a loop to retrieve each row one at a time.
+In python there are three main ways to retrieve the results of a query:
 
 <section class="flex-container">
 <div class="flex-child" style="min-width: 300px;">
@@ -219,7 +428,7 @@ This is a good compromise between performance and memory usage, as it allows you
 </div>
 <div class="flex-child" style="min-width: 300px;">
 ```python
-cur.execute("SELECT * FROM users;")
+cur.execute("SELECT * FROM table_name;")
 while rows:=cur.fetchmany(10):
     print( f"{len(rows)} rows fetched:")
     for row in rows:
