@@ -662,7 +662,8 @@ Try:
 SELECT * 
 FROM alasql.patients
 WHERE 
-	patients.sex IS NULL OR
+	patients.sex IS NULL 
+OR
 	patients.race IS NULL;
 ```
 
@@ -676,7 +677,8 @@ What has to change to make this code work?  Select all that apply.
 SELECT
 FROM alasql.patients
 WHERE
-  patients.race = NULL OR
+  patients.race = NULL 
+OR
   patients.sex = NULL.
 ```
 
@@ -861,11 +863,11 @@ Try:
 
 ```sql
 SELECT 
-	pt.id
-	,pt.sex as sex_assigned_at_birth
-	,pt.ethnicity
-	,pt.state
-	,pt.zip as postal_code
+	pt.id,
+	pt.sex as sex_assigned_at_birth,
+	pt.ethnicity,
+	pt.state,
+	pt.zip as postal_code
 FROM alasql.patients as pt
 ORDER BY postal_code;
 ```
