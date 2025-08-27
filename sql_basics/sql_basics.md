@@ -1,7 +1,7 @@
 <!--
 module_id: sql_basics
-author: Peter Camacho; Joy Payton
-email: camachop@chop.edu; paytonk@chop.edu
+author: Peter Camacho; Joy Payton; David Croft
+email: camachop@chop.edu; paytonk@chop.edu; david.croft@warwick.ac.uk
 version: 1.3.2
 current_version_description: Add three new additional resources; make liascript link(s) point to first page
 module_type: standard
@@ -637,6 +637,22 @@ WHERE
 The fact that nulls aren't included in comparisons is a very subtle distinction that can drastically alter the output of your SQL statements.  This can be very important when writing inclusion and exclusion logic and thinking about what cases belong in your data set.  Always keep in mind that you might have missing values, and consider what that might mean for your selection of rows.  
 
 </div>
+
+<div class = "help">
+<b style="color: rgb(var(--color-highlight));">NULL is not "Null"</b><br>
+
+It is important that you understand that Null values are not the same as the string "Null".
+Null is an absence of a value, "Null" is a string with a very definite value of 4 characters, N, u, l and l.
+Understand that "Null" is a perfectly valid string value. 
+The failure of previous programmers to recognize this distinction has caused numerous issues; in particular for anyone unfortunate enough to have a "Null" as their name.
+
+[BBC News Article on "Jennifer Null"](https://www.bbc.co.uk/future/article/20160325-the-names-that-break-computer-systems)
+
+Within a single database or application this distinction is generally clear and is unlikely to cause issue. 
+But when importing or exporting data from a database, or writing software that has to transfer data between applications, this distinction can become lost and that causes problems.
+
+</div>
+
 
 Sometimes you want to evaluate missing data patterns.  For example, maybe there's a discernible pattern in patients who are missing sex or race data.  Write and run a query in the code box below that will give you all the fields for rows in `patients` where either the sex or race data is missing.   (Hint: there might not be any rows that have missing data in those two fields).
 
