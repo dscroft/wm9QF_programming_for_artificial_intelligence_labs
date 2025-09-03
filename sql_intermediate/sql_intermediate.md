@@ -65,6 +65,7 @@ previous_sequential_module: sql_basics
 
 @end
 
+link:  ../assets/styles.css
 import: ../module_templates/macros.md
 import: ../module_templates/macros_sql.md
 -->
