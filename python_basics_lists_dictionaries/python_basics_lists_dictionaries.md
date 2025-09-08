@@ -77,7 +77,7 @@ import: https://github.com/LiaScript/CodeRunner/blob/master/README.md
 
 ## Collection Objects in Python
 
-How information is stored and organized is an important part of programming. Python has specific data types called **collections** that store and organize information in different ways. This module will discuss two of the most common and useful types of collections: lists and dictionaries. 
+How information is stored and organized is an important part of programming. Python has specific data types called **collections/containers** that store and organize information in different ways. This module will discuss two of the most common and useful types of collections: lists and dictionaries. 
 
 <div class = "learn-more">
 <b style="color: rgb(var(--color-highlight));">Learning connection</b><br>
@@ -232,6 +232,49 @@ The code cells above are linked, meaning that all of the cells "remember" the co
 
 </div>
 
+
+### List usefulness
+
+Lists are useful because they allow you to store and manage multiple related values together, making your code simpler and more organized. Instead of creating separate variables for each item, you can use a list to group them.
+
+For example, imagine you want to store and print the names of five students. Without containers, you would need to create separate variables for each student:
+
+```python
+student1 = "Alice"
+student2 = "Bob"
+student3 = "Charlie"
+student4 = "Diana"
+student5 = "Ethan"
+
+print(student1)
+print(student2)
+print(student3)
+print(student4)
+print(student5)
+```
+@Pyodide.eval
+
+With a list, you can store all the names together and use a loop to process them:
+
+```python
+students = ["Alice", "Bob", "Charlie", "Diana", "Ethan"]
+for student in students:
+    print(student)
+```
+@Pyodide.eval
+
+This approach is much simpler, especially if you have many items. Lists also make it easy to add, remove, or change items without rewriting your code.
+
+Lists are also useful for tasks like:
+
+- Storing results from calculations (e.g., scores from a game)
+- Collecting user input (e.g., survey responses)
+- Managing data that changes over time (e.g., a shopping cart)
+
+Whenever you have a group of related values, using a list helps keep your code clean, flexible, and easy to maintain.
+
+
+
 ### Quiz: Lists
 
 1. Which of the following is FALSE about lists? Select all that apply.
@@ -264,6 +307,7 @@ The code cells above are linked, meaning that all of the cells "remember" the co
     </div>
     ***
 
+
 ## Dictionaries
 
 Another kind of collection object in Python is a **dictionary**. Dictionaries are similar to lists in some ways, in that they are ordered (in recent versions of Python; in older versions, dictionaries are unordered) and changeable. However, there are some important distinctions:
@@ -283,6 +327,7 @@ contact_info = {"address" : "123 Puppydog Lane",
 print(contact_info)
 ```
 @Pyodide.eval
+
 
 ### Dictionary methods
 
@@ -435,6 +480,54 @@ We've just gone through quite a few useful list and dictionary methods, and you 
 
     </div>
     ***
+
+### Dictionary usefulness
+
+Dictionaries are useful because they allow you to associate related pieces of information together using key-value pairs. This makes your code easier to read, more organized, and efficient when you need to look up values by a specific key.
+
+For example, suppose you want to store the ages of several people. Using lists, you might do something like:
+
+```python
+names = ["Alice", "Bob", "Charlie", "Diana"]
+ages = [25, 30, 22, 28]
+
+# To find the age of Charlie:
+index = names.index("Charlie")
+print(ages[index])
+```
+@Pyodide.eval
+
+This works, but it requires you to keep track of two lists and make sure their order matches. If you accidentally change one list, your data could get mixed up.
+
+With a dictionary, you can store the same information more simply:
+
+```python
+person_ages = {
+    "Alice": 25,
+    "Bob": 30,
+    "Charlie": 22,
+    "Diana": 28
+}
+
+print(person_ages["Charlie"])
+```
+@Pyodide.eval
+
+Now, you can look up a person's age directly by their name, without worrying about matching list positions.
+
+Dictionaries are especially useful when:
+
+- You need to look up values quickly by a unique identifier (like a name, ID, or key).
+- You want to store related data together (such as user profiles, configuration settings, or mappings).
+- You have data where each item has a unique label or property.
+
+Other examples where dictionaries simplify code:
+
+- Counting occurrences of items (using the item as the key and the count as the value).
+- Grouping data by category.
+- Storing settings or options for a program.
+
+Whenever you need to associate values with unique keys, dictionaries are the best choice in Python.
 
 
 ## Additional Resources
