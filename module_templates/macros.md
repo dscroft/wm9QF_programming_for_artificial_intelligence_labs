@@ -151,6 +151,38 @@ Looking for other modules on this topic or other topics related to data analytic
 </script>
 @end
 
+@sectiontoc
+<script run-once>
+    let current = document.getElementById("focusedToc");
+    let elements = document.querySelectorAll('.lia-toc__link');
+    let section = [];
+    let contains = false;
+
+    for (let element of elements) 
+    {
+        // reset the list of sections
+        if (element.classList.contains('lia-toc__link--is-lvl-1'))
+        {
+            // but if this was the section that contains the current element, we are done
+            if (contains) break;
+            section = [];
+        }
+        else if (element.classList.contains('lia-toc__link--is-lvl-2'))
+            section.push( [ 0, element ] );
+        else if (element.classList.contains('lia-toc__link--is-lvl-3'))
+            section.push( [ 1, element ] );
+
+        if ( element === current )
+            contains = true;
+    }
+
+    let md = "LIASCRIPT: \n";
+    for (let [lvl, element] of section)
+        md += "  ".repeat(lvl) + "- [" + element.textContent + "](" + element.getAttribute('href') + ")\n\n";
+    md
+</script>
+@end
+
 script: https://kit.fontawesome.com/83b2343bd4.js
 script:  https://code.jquery.com/jquery-3.6.0.slim.min.js
 
