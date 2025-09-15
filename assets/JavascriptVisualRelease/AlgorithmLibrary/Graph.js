@@ -713,7 +713,7 @@ Graph.prototype.enableUI = function(event)
  var currentAlg;
  function init()
  {
- var animManag = initCanvas();
+ var animManag = initCanvas(true);
  currentAlg = new Graph(animManag, canvas.width, canvas.height);
 }
 

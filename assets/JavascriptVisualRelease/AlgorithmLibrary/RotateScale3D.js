@@ -1122,7 +1122,7 @@ var currentAlg;
 
 function init()
 {
-	var animManag = initCanvas();
+	var animManag = initCanvas(true);
 	currentAlg = new RotateScale3D(animManag, canvas.width, canvas.height);
 }
 

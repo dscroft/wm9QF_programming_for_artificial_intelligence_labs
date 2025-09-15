@@ -566,6 +566,7 @@ ComparisonSort.prototype.doMergeSort = function(low,high)
 	{
 		this.cmd("Step");
 		var mid = Math.floor((low + high) / 2);
+
 		this.doMergeSort(low,mid);
 		this.doMergeSort(mid+1, high);
 		this.highlightRange(low,high);
@@ -574,6 +575,17 @@ ComparisonSort.prototype.doMergeSort = function(low,high)
 		var rightIndex = mid+1;
 		while (insertIndex <= high)
 		{
+			for (var i = low; i <= mid; i++)
+			{
+				this.cmd("SetForegroundColor", this.barObjects[i], SAVE_FOREGROUND_COLOR);
+				this.cmd("SetBackgroundColor", this.barObjects[i], SAVE_BACKGROUND_COLOR);
+			}
+			for (i = mid+1; i <= high; i++)
+			{
+				this.cmd("SetForegroundColor", this.barObjects[i], HIGHLIGHT_BAR_COLOR);
+				this.cmd("SetBackgroundColor", this.barObjects[i], HIGHLIGHT_BAR_BACKGROUND_COLOR);
+			}
+
 			if (leftIndex <= mid && (rightIndex > high || this.arrayData[leftIndex] <= this.arrayData[rightIndex]))
 			{
 				this.arraySwap[insertIndex] = this.arrayData[leftIndex];
@@ -598,6 +610,13 @@ ComparisonSort.prototype.doMergeSort = function(low,high)
 				rightIndex++;					
 			}
 		}
+
+		for (i = low; i <= high; i++)
+		{
+			this.cmd("SetForegroundColor", this.barObjects[i], BAR_FOREGROUND_COLOR);
+			this.cmd("SetBackgroundColor", this.barObjects[i], BAR_BACKGROUND_COLOR);
+		}
+
 		for (insertIndex = low; insertIndex <= high; insertIndex++)
 		{
 			this.barObjects[insertIndex] = this.objectsSwap[insertIndex];

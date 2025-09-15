@@ -1414,6 +1414,6 @@ var currentAlg;
 
 function init()
 {
-	var animManag = initCanvas();
+	var animManag = initCanvas(true);
 	currentAlg = new BPlusTree(animManag, canvas.width, canvas.height);
 }

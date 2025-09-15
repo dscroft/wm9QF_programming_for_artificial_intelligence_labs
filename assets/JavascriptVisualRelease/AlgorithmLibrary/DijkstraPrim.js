@@ -428,6 +428,6 @@ var currentAlg;
 
 function init(runDijkstra)
 {
-	var animManag = initCanvas();
+	var animManag = initCanvas(true);
 	currentAlg = new DijkstraPrim(animManag, runDijkstra, canvas.width, canvas.height);
 }

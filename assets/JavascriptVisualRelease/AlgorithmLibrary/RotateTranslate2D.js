@@ -924,7 +924,7 @@ var currentAlg;
 
 function init()
 {
-	var animManag = initCanvas();
+	var animManag = initCanvas(true);
 	currentAlg = new RotateTranslate2D(animManag, canvas.width, canvas.height);
 }
 

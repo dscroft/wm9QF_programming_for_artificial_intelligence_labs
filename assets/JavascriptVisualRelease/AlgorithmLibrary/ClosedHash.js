@@ -412,6 +412,6 @@ var currentAlg;
 
 function init()
 {
-	var animManag = initCanvas();
+	var animManag = initCanvas(true);
 	currentAlg = new ClosedHash(animManag, canvas.width, canvas.height);
 }
