@@ -101,9 +101,9 @@ var SIZE_SMALL = 32;
 var SIZE_LARGE = 180;
 var SIZE = SIZE_SMALL;
 
-function Search(am, w, h)
+function Search(am, w, h, mode)
 {
-    this.init(am, w, h);
+    this.init(am, w, h, mode);
     
 }
 
@@ -132,12 +132,10 @@ Search.BINARY_CODE = [ ["def ", "binarySearch(listData, value)"],
                        ["            high = mid - 1"],
                        ["    return -1"]]
 
-
-
-Search.prototype.init = function(am, w, h)
+Search.prototype.init = function(am, w, h, mode)
 {
     Search.superclass.init.call(this, am, w, h);
-    this.addControls();
+    this.addControls(mode);
     this.nextIndex = 0;
     this.commands = [];
     this.setup();
@@ -145,21 +143,26 @@ Search.prototype.init = function(am, w, h)
 }
 
 
-Search.prototype.addControls =  function()
+Search.prototype.addControls =  function(mode="")
 {
     this.controls = [];
     this.searchField = addControlToAlgorithmBar("Text", "");
     this.searchField.onkeydown = this.returnSubmit(this.searchField,  null,  6, true);
-    this.linearSearchButton = addControlToAlgorithmBar("Button", "Linear Search");
-    this.linearSearchButton.onclick = this.linearSearchCallback.bind(this);
-    this.controls.push(this.searchField);
-    this.controls.push(this.linearSearchButton);
 
+    if( mode == "linear" || mode == "" )
+    {
+        this.linearSearchButton = addControlToAlgorithmBar("Button", "Linear Search");
+        this.linearSearchButton.onclick = this.linearSearchCallback.bind(this);
+        this.controls.push(this.searchField);
+        this.controls.push(this.linearSearchButton);
+    }
 
-    this.binarySearchButton = addControlToAlgorithmBar("Button", "Binary Search");
-    this.binarySearchButton.onclick = this.binarySearchCallback.bind(this);
-    this.controls.push(this.binarySearchButton);
-    
+    if( mode == "binary" || mode == "" )
+    {
+        this.binarySearchButton = addControlToAlgorithmBar("Button", "Binary Search");
+        this.binarySearchButton.onclick = this.binarySearchCallback.bind(this);
+        this.controls.push(this.binarySearchButton);
+    }
 
 	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Small", "Large"], "List Size");
 	this.smallListButton = radioButtonList[0];
@@ -727,8 +730,8 @@ Search.prototype.linearSearch = function(searchVal)
 
 var currentAlg;
 
-function init()
+function init(mode="")
 {
     var animManag = initCanvas(true);
-    currentAlg = new Search(animManag, canvas.width, canvas.height);
+    currentAlg = new Search(animManag, canvas.width, canvas.height, mode);
 }
