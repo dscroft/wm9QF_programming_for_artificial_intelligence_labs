@@ -664,22 +664,29 @@ target = 45
 
 result = binary_search_closest(sorted(data), target)
 
-if result == 42:
-    print("Test passed!")
-else:
-    print(f"Test failed. Expected closest value to be 42 but got {result}.")
+print(f"Closest value to {target} is {result}")
 ```
 @Pyodide.eval
 
-**Challenge:**  
-Test your function with a value that does not exist in the list. What does it return?
+----------------------
 
-<div class = "care">
-<b style="color: rgb(var(--color-highlight));">Practice makes perfect!</b><br>
+**Test your function**
 
-Try modifying these examples to work with different types of data - strings, dates, or custom objects. The key is understanding when each algorithm is most appropriate and implementing them correctly.
+```python
+data = [64, 89,  8,  2, 24,  3, 42, 76]
+target = 45
+answer = 42
 
-</div>
+result = binary_search_closest(sorted(data), target)
+
+if result == answer:
+    print("Test passed!")
+else:
+    print(f"Test failed. Looking for {target}, expected closest value to be {answer} but got {result} instead.")
+```
+@Pyodide.hide
+
+
 
 ## Algorithm Comparison and Summary
 
