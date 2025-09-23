@@ -77,9 +77,10 @@ link:  ../assets/styles.css
 import: ../module_templates/macros.md
 import: ../module_templates/macros_python.md
 import: ../module_templates/macros_algo_visualisations.md
-import: https://raw.githubusercontent.com/LiaTemplates/Pyodide/master/README.md
+import: https://dscroft.github.io/Pyodide/README.md
 import: https://github.com/LiaScript/CodeRunner/blob/master/README.md
 -->
+
 
 # Attribution
 
@@ -242,6 +243,25 @@ Linear search has a **time complexity of O(n)**, which means the time it takes g
 - **Average case**: On average, we'll find the element halfway through the list - about n/2 steps
 
 Let's demonstrate this with different sized lists:
+
+```python @Pyodide.exec
+def linear_search(data_list, target):
+    """
+    Search for target in data_list using linear search.
+    
+    Args:
+        data_list: List of elements to search through
+        target: Element we're looking for
+    
+    Returns:
+        Index of target if found, -1 if not found
+    """
+    for index in range(len(data_list)):
+        if data_list[index] == target:
+            return index  # Found it! Return the position
+    
+    return None  # Not found
+```
 
 ```python
 import time
@@ -584,277 +604,75 @@ Binary search is used everywhere in computing:
 
 Now that we understand both linear and binary search, let's apply them to solve some real-world problems. These exercises will help you understand when to choose each algorithm and how to implement them effectively.
 
-### Exercise 1: Student Grade Lookup System
+### Exercise 1: Linear Search – Find All Occurrences
 
-Imagine you're building a system to look up student grades. You have two scenarios:
+Modify the existing `linear_search_all` function so that it returns a list of all indices where the target value appears in the list, instead of just the first occurrence.
 
 ```python
-# Scenario 1: Unsorted student records (as they were entered)
-student_records_unsorted = [
-    ("Alice", 85),
-    ("David", 92),
-    ("Bob", 78),
-    ("Emma", 95),
-    ("Charlie", 88)
-]
-
-# Scenario 2: Students sorted by name for efficient lookup
-student_records_sorted = [
-    ("Alice", 85),
-    ("Bob", 78),
-    ("Charlie", 88),
-    ("David", 92),
-    ("Emma", 95)
-]
-
-def find_student_grade_linear(records, student_name):
+def linear_search_all(data_list, target):
     """
-    Find a student's grade using linear search
+    Return a list of all indices where target appears in data_list.
     """
-    for name, grade in records:
-        if name == student_name:
-            return grade
-    return None
+    for i in range(len(data_list)):
+        if data_list[i] == target:
+            return [i]
+    return []
 
-def find_student_grade_binary(sorted_records, student_name):
-    """
-    Find a student's grade using binary search on sorted records
-    """
-    left = 0
-    right = len(sorted_records) - 1
-    
-    while left <= right:
-        middle = (left + right) // 2
-        middle_name = sorted_records[middle][0]
-        
-        if middle_name == student_name:
-            return sorted_records[middle][1]  # Return the grade
-        elif middle_name < student_name:
-            left = middle + 1
-        else:
-            right = middle - 1
-    
-    return None
+# Example usage
+numbers = [4, 2, 7, 4, 9, 4, 1]
+target = 4
 
-# Test both approaches
-print("Looking up Emma's grade:")
-print("Linear search result:", find_student_grade_linear(student_records_unsorted, "Emma"))
-print("Binary search result:", find_student_grade_binary(student_records_sorted, "Emma"))
+result = linear_search_all(numbers, target)
 
-print("\nLooking up Frank's grade (not in list):")
-print("Linear search result:", find_student_grade_linear(student_records_unsorted, "Frank"))
-print("Binary search result:", find_student_grade_binary(student_records_sorted, "Frank"))
+print(f"All indices of {target}: {result}")
 ```
 @Pyodide.eval
 
-### Exercise 2: Finding Multiple Elements
+----------------------
 
-Sometimes we need to find multiple elements. Let's see how each algorithm handles this:
+**Test your function**
 
 ```python
-def find_all_occurrences_linear(data_list, target):
-    """
-    Find all positions where target appears using linear search
-    """
-    positions = []
-    for index, value in enumerate(data_list):
-        if value == target:
-            positions.append(index)
-    return positions
+numbers = [4, 2, 7, 4, 9, 4, 1]
+target = 4
 
-def find_first_occurrence_binary(sorted_list, target):
+result = linear_search_all(numbers, target)
+
+if set(result) == {0, 3, 5}:
+    print("Test passed!")
+else:
+    print("Test failed. Missing some occurrences.")
+```
+@Pyodide.hide
+
+
+### Exercise 2: Binary Search - Closest match
+
+Try and modify the binary search function to return the index of the closest value to the target if the exact target is not found in the list.
+
+```python
+def binary_search_closest(sorted_list, target):
     """
-    Find the first occurrence of target in a sorted list
+    Return the index of the closest value to target in sorted_list.
+    If not found, return None.
     """
-    left = 0
-    right = len(sorted_list) - 1
-    result = -1
-    
-    while left <= right:
-        middle = (left + right) // 2
-        
-        if sorted_list[middle] == target:
-            result = middle
-            right = middle - 1  # Continue searching left for first occurrence
-        elif sorted_list[middle] < target:
-            left = middle + 1
-        else:
-            right = middle - 1
-    
-    return result
+    return sorted_list[0] # Placeholder implementation
 
-# Test with data that has duplicates
-data_with_duplicates = [1, 3, 5, 5, 5, 7, 9, 5, 11]
-sorted_data_with_duplicates = [1, 3, 5, 5, 5, 5, 7, 9, 11]
+# Example usage
+data = [64, 89,  8,  2, 24,  3, 42, 76]
+target = 45
 
-print("Original data:", data_with_duplicates)
-print("All positions of 5 (linear search):", find_all_occurrences_linear(data_with_duplicates, 5))
+result = binary_search_closest(sorted(data), target)
 
-print("\nSorted data:", sorted_data_with_duplicates)
-print("First position of 5 (binary search):", find_first_occurrence_binary(sorted_data_with_duplicates, 5))
+if result == 42:
+    print("Test passed!")
+else:
+    print(f"Test failed. Expected closest value to be 42 but got {result}.")
 ```
 @Pyodide.eval
 
-### Exercise 3: Dictionary Word Checker
-
-Let's build a simple spell checker using binary search:
-
-```python
-# A small dictionary of valid words (sorted)
-dictionary = [
-    "apple", "banana", "cherry", "date", "elderberry", 
-    "fig", "grape", "honeydew", "kiwi", "lemon",
-    "mango", "orange", "papaya", "quince", "raspberry"
-]
-
-def is_word_valid(word, dictionary):
-    """
-    Check if a word is in the dictionary using binary search
-    """
-    left = 0
-    right = len(dictionary) - 1
-    
-    while left <= right:
-        middle = (left + right) // 2
-        middle_word = dictionary[middle]
-        
-        if middle_word == word:
-            return True
-        elif middle_word < word:
-            left = middle + 1
-        else:
-            right = middle - 1
-    
-    return False
-
-def spell_check(text, dictionary):
-    """
-    Check all words in a text against the dictionary
-    """
-    words = text.lower().split()
-    results = []
-    
-    for word in words:
-        # Remove punctuation for simple checking
-        clean_word = word.strip('.,!?;:')
-        if is_word_valid(clean_word, dictionary):
-            results.append((word, "✓ Valid"))
-        else:
-            results.append((word, "✗ Not found"))
-    
-    return results
-
-# Test the spell checker
-test_text = "I love eating apple and banana, but not quinze"
-print("Spell checking:", test_text)
-print()
-for word, status in spell_check(test_text, dictionary):
-    print(f"{word:12} {status}")
-```
-@Pyodide.eval
-
-### Exercise 4: Performance Comparison
-
-Let's do a comprehensive comparison of both algorithms:
-
-```python
-import random
-import time
-
-def create_test_data(size):
-    """Create test data of given size"""
-    data = random.sample(range(1, size * 10), size)
-    return sorted(data)
-
-def benchmark_searches(data, num_searches=100):
-    """
-    Benchmark both search algorithms
-    """
-    # Generate random targets to search for
-    targets = [random.choice(data) for _ in range(num_searches)]
-    
-    # Time linear search
-    start_time = time.time()
-    for target in targets:
-        linear_search(data, target)
-    linear_time = time.time() - start_time
-    
-    # Time binary search
-    start_time = time.time()
-    for target in targets:
-        binary_search(data, target)
-    binary_time = time.time() - start_time
-    
-    return linear_time, binary_time
-
-print("Performance Comparison:")
-print("=" * 50)
-
-for size in [100, 1000, 10000]:
-    test_data = create_test_data(size)
-    linear_time, binary_time = benchmark_searches(test_data)
-    
-    speedup = linear_time / binary_time if binary_time > 0 else 0
-    
-    print(f"Size: {size:5d} | Linear: {linear_time:.4f}s | Binary: {binary_time:.4f}s | Speedup: {speedup:.1f}x")
-```
-@Pyodide.eval
-
-### Exercise 5: Choosing the Right Algorithm
-
-Here's a decision helper to choose the appropriate search algorithm:
-
-```python
-def recommend_search_algorithm(data_info):
-    """
-    Recommend which search algorithm to use based on data characteristics
-    """
-    size = data_info.get('size', 0)
-    is_sorted = data_info.get('is_sorted', False)
-    search_frequency = data_info.get('search_frequency', 'low')  # low, medium, high
-    sort_cost = data_info.get('sort_cost', 'medium')  # low, medium, high
-    
-    print(f"Data Analysis:")
-    print(f"  Size: {size}")
-    print(f"  Currently sorted: {is_sorted}")
-    print(f"  Search frequency: {search_frequency}")
-    print(f"  Cost to sort: {sort_cost}")
-    print()
-    
-    recommendation = "Linear Search"
-    reasoning = []
-    
-    if is_sorted and size > 100:
-        recommendation = "Binary Search"
-        reasoning.append("Data is already sorted and large enough to benefit")
-    elif not is_sorted and size > 1000 and search_frequency == 'high':
-        recommendation = "Sort once, then use Binary Search"
-        reasoning.append("Large dataset with frequent searches justifies sorting cost")
-    elif size < 100:
-        recommendation = "Linear Search"
-        reasoning.append("Small dataset - simplicity outweighs efficiency concerns")
-    else:
-        reasoning.append("Data characteristics favor linear search")
-    
-    print(f"Recommendation: {recommendation}")
-    print("Reasoning:")
-    for reason in reasoning:
-        print(f"  • {reason}")
-
-# Test different scenarios
-scenarios = [
-    {'size': 50, 'is_sorted': False, 'search_frequency': 'medium'},
-    {'size': 10000, 'is_sorted': True, 'search_frequency': 'high'},
-    {'size': 5000, 'is_sorted': False, 'search_frequency': 'high'},
-    {'size': 1000, 'is_sorted': False, 'search_frequency': 'low'}
-]
-
-for i, scenario in enumerate(scenarios, 1):
-    print(f"Scenario {i}:")
-    recommend_search_algorithm(scenario)
-    print("-" * 40)
-```
-@Pyodide.eval
+**Challenge:**  
+Test your function with a value that does not exist in the list. What does it return?
 
 <div class = "care">
 <b style="color: rgb(var(--color-highlight));">Practice makes perfect!</b><br>
@@ -943,41 +761,38 @@ Congratulations! You now understand the fundamentals of searching algorithms and
 ## Additional Resources
 
 **Algorithm Visualization Tools:**
+
 * [VisuAlgo - Interactive Algorithm Visualizations](https://visualgo.net/en/bst) - Excellent interactive visualizations for binary search trees and other searching algorithms
 * [Algorithm Visualizer](https://algorithm-visualizer.org/) - Visual representations of many different algorithms including searching
 
 **Python Programming Resources:**
+
 * [Python.org Official Documentation](https://docs.python.org/3/) - Comprehensive Python documentation including built-in search functions
 * [Python Algorithm Practice](https://leetcode.com/problemset/algorithms/) - Practice implementing searching algorithms with coding challenges
 * [Real Python - Search Algorithms](https://realpython.com/binary-search-python/) - Detailed tutorial on implementing search algorithms in Python
 
 **Computer Science Fundamentals:**
+
 * [Khan Academy - Algorithms](https://www.khanacademy.org/computing/computer-science/algorithms) - Free course covering algorithm analysis and design
 * [MIT OpenCourseWare - Introduction to Algorithms](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/) - University-level algorithms course materials
 
 **Advanced Topics:**
-* [Binary Search Variations](https://www.geeksforgeeks.org/binary-search/) - Different implementations and applications of binary search
-* [Hash Tables and Search](https://www.programiz.com/dsa/hash-table) - Learn about O(1) average-case searching with hash tables
-* [Search in Databases](https://use-the-index-luke.com/) - How searching algorithms apply to database systems
+
+* [Binary Search Variations](https://www.geeksforgeeks.org/binary-search/) 
+  
+  - Different implementations and applications of binary search
+* [Hash Tables and Search](https://www.programiz.com/dsa/hash-table) 
+  
+  - Learn about O(1) average-case searching with hash tables
+* [Search in Databases](https://use-the-index-luke.com/) 
+  
+  - How searching algorithms apply to database systems
 
 **Practice Problems:**
+
 * Try implementing these search variations:
-  - Find the first occurrence of an element in a sorted array with duplicates
-  - Find the last occurrence of an element in a sorted array
-  - Search in a rotated sorted array
-  - Implement a binary search that works with floating-point numbers
-
-<div class = "important">
-<b style="color: rgb(var(--color-highlight));">Next Steps</b><br>
-
-Now that you understand searching algorithms, you're ready to explore:
-- **Sorting Algorithms**: Learn how to organize data efficiently before searching
-- **Data Structures**: Discover tree structures that optimize searching operations
-- **Algorithm Analysis**: Dive deeper into time and space complexity analysis
-- **Hash Tables**: Explore data structures that can achieve O(1) search time
-
-</div>
-
-## Feedback
-
-@feedback
+  
+  - Find the first occurrence of an element in a sorted array with duplicates.
+  - Find the last occurrence of an element in a sorted array.
+  - Search in a rotated sorted array.
+  - Implement a binary search that works with floating-point numbers.
