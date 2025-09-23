@@ -68,20 +68,18 @@ Previous versions:
 link:  ../assets/styles.css
 import: ../module_templates/macros.md
 import: ../module_templates/macros_algo_visualisations.md
-
+import: https://dscroft.github.io/Pyodide/README.md
 -->
 
-# Attribution
 
-@algo_attribution
 
 # Sorting Algorithms
 
 @overview
 
-## Lesson Preparation
+## Attribution
 
-@lesson_prep_python_pyodide
+@algo_attribution
 
 ## Introduction
 
@@ -465,7 +463,7 @@ def bubble_sort_descending(arr):
     Complete this function.
     """
     # Your code here
-    pass
+    return arr
 
 # Test your function
 test_data = [3, 1, 4, 1, 5, 9, 2, 6]
@@ -474,47 +472,76 @@ print("Descending order:", result)  # Should print [9, 6, 5, 4, 3, 2, 1, 1]
 ```
 @Pyodide.eval
 
-### Exercise 2: Count Comparisons
+------------------
 
-Modify the selection sort algorithm to count and return the number of comparisons made:
+**Test your function**
 
 ```python
-def selection_sort_with_count(arr):
+import random
+
+test_data = [random.randint(1, 99) for _ in range(10)]
+rev_data = sorted(test_data, reverse=True)
+result = bubble_sort_descending(test_data)
+
+if result == rev_data:
+    print( "Passed!" )
+else:
+    print( "Failed!" )
+    print(f"            Input: {test_data}")
+    print(f"   Expected order: {rev_data}")  # Should print the list sorted in descending order
+    print(f"Function returned: {result}")
+```
+@Pyodide.hide
+
+
+### Exercise 2: Bogo Sort
+
+Bogo sort is a highly ineffective sorting algorithm based on the generate and test paradigm. 
+The algorithm randomly shuffles the input values until they find a permutations of the array until it finds one that is sorted.
+
+Such an algorithm is not useful in any real application.
+
+```python
+def bogo_sort(arr):
     """
-    Sort an array using selection sort and count comparisons.
-    Return both the sorted array and the number of comparisons.
+    Sort an array using bogo sort and count the number of iterations.
+    Return both the sorted array and the number of iterations.
     """
+    counter = 0
     # Your code here
-    pass
+    return arr, counter
 
 # Test your function
 test_data = [5, 2, 8, 1, 9]
-sorted_arr, comparisons = selection_sort_with_count(test_data)
+sorted_arr, counter = bogo_sort(test_data)
+
 print(f"Sorted: {sorted_arr}")
-print(f"Comparisons made: {comparisons}")
+print(f"Iterations taken: {counter}")
 ```
 @Pyodide.eval
 
-### Exercise 3: Hybrid Algorithm
+------------------
 
-Create a function that chooses between bubble sort and merge sort based on the size of the input:
+**Test your function**
 
 ```python
-def smart_sort(arr, threshold=10):
-    """
-    Use bubble sort for small arrays (< threshold) and merge sort for larger ones.
-    """
-    # Your code here
-    pass
-
-# Test with different sized arrays
-small_array = [3, 1, 4, 1, 5]
-large_array = [random.randint(1, 100) for _ in range(50)]
-
-print("Small array sorted:", smart_sort(small_array))
-print("Large array first 10 elements:", smart_sort(large_array)[:10])
+test_data = [5, 2, 8, 1, 9]
+sorted_arr, counter = bogo_sort(test_data)
+if sorted_arr == sorted(test_data):
+    print( "Passed!" )
+    print(f"Iterations taken: {counter}")
+else:
+    print( "Failed!" )
+    print(f"            Input: {test_data}")
+    print(f"   Expected order: {sorted(test_data)}")  # Should print the list sorted in ascending order
+    print(f"Function returned: {sorted_arr}")
 ```
-@Pyodide.eval
+@Pyodide.hide
+
+
+There is no reliable way to automatically test this function beyond verifying that the output is sorted. The number of iterations will vary randomly each time it runs—even for small input arrays, it can take anywhere from 1 to potentially an infinite number of iterations.
+
+You can experiment by increasing the size of the input array to observe how it affects the number of iterations required. However, be aware that this algorithm is extremely inefficient, so sorting larger inputs may take a very long time!
 
 <div class = "care">
 <b style="color: rgb(var(--color-highlight));">A little encouragement...</b><br>
@@ -522,6 +549,54 @@ print("Large array first 10 elements:", smart_sort(large_array)[:10])
 Don't worry if these exercises seem challenging at first! Start by understanding the existing code, then make small modifications. You can always refer back to the implementations above for guidance.
 
 </div>
+
+
+### Exercise 3: Stalin sort
+
+Stalin sort is another joke sorting algorithm.
+
+It 'sorts' the given array but getting rid of any values that are not already sorted.
+
+```python
+def stalin_sort(arr):
+    """
+    Sort an array using Stalin sort.
+    """
+    return arr
+
+test_data = [24, 48, 5, 50, 90, 30, 54, 53]
+sorted_data = stalin_sort(test_data)
+
+print(f"'Sorted': {sorted_data}")
+```
+@Pyodide.eval
+
+------------------
+
+**Test your function**
+
+```python
+test_data = [24, 48, 5, 50, 90, 30, 54, 53]
+expected  = [24, 48, 50, 90]
+result = stalin_sort(test_data)
+
+if result == expected:
+    print( "Passed!" )
+else:
+    print( "Failed!" )
+    print(f"            Input: {test_data}")
+    print(f"   Expected order: {expected}")
+    print(f"Function returned: {result}")
+```
+@Pyodide.hide
+
+<div class = "care">
+<b style="color: rgb(var(--color-highlight));">A little encouragement...</b><br>
+
+Don't worry if these exercises seem challenging at first! Start by understanding the existing code, then make small modifications. You can always refer back to the implementations above for guidance.
+
+</div>
+
 
 ## Real-World Applications
 
@@ -536,6 +611,7 @@ Sorting algorithms are used everywhere in computing:
 
 Understanding these algorithms helps you make informed decisions about when to use built-in functions versus implementing custom solutions.
 
+
 ## Additional Resources
 
 * **Algorithm Visualizations**: The interactive visualizations in this module are provided by [David Galles' Algorithm Visualizations](https://www.cs.usfca.edu/~galles/visualization/). Explore these tools to deepen your understanding of how different algorithms work.
@@ -548,6 +624,3 @@ Understanding these algorithms helps you make informed decisions about when to u
 
 * **Practice Problems**: Try implementing sorting algorithms on coding practice websites like [LeetCode](https://leetcode.com/) or [HackerRank](https://www.hackerrank.com/) to reinforce your understanding.
 
-## Feedback
-
-@feedback
