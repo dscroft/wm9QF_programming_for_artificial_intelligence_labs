@@ -58,18 +58,18 @@ Previous versions:
 link:  ../assets/styles.css
 import: ../module_templates/macros.md
 import: ../module_templates/macros_python.md
-import: https://raw.githubusercontent.com/LiaTemplates/Pyodide/master/README.md
+import: https://dscroft.github.io/Pyodide/README.md
 import: https://github.com/LiaScript/CodeRunner/blob/master/README.md
 
 -->
 
-# Attribution
-
-@attribution
-
 # Python Basics: Lists and Dictionaries
 
 @overview
+
+## Attribution
+
+@attribution
 
 ## Lesson Preparation
 
@@ -115,7 +115,7 @@ There are a few important characteristics of lists:
 
     </div>
 
-* Lists are **changeable**; you can add, remove, and edit items in a list. You can use list [methods](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/python_basics_variables_functions_methods/python_basics_variables_functions_methods.md#6) to do this.
+* Lists are **changeable**; you can add, remove, and edit items in a list. You can use list methods to do this.
 
 ### List methods
 
@@ -228,7 +228,7 @@ You'll notice that with each step, our list `produce` has been permanently chang
 <div class = "help">
 <b style="color: rgb(var(--color-highlight));">Troubleshooting help</b><br>
 
-The code cells above are linked, meaning that all of the cells "remember" the code that has been run previously (as they would be in a [notebook](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/demystifying_python/demystifying_python.md#jupyter-notebooks)). Because of this, if you run them out of order, you can get unexpected results or even errors! If things aren't working like they should, re-run the first code cell on the page or hit your refresh button.
+The code cells above are linked, meaning that all of the cells "remember" the code that has been run previously (as they would be in a Jupyter notebook). Because of this, if you run them out of order, you can get unexpected results or even errors! If things aren't working like they should, re-run the first code cell on the page or hit your refresh button.
 
 </div>
 
@@ -277,35 +277,41 @@ Whenever you have a group of related values, using a list helps keep your code c
 
 ### Quiz: Lists
 
-1. Which of the following is FALSE about lists? Select all that apply.
+Question 1
+==========
 
-    [( )] Lists are changeable; items can be added, removed, or replaced after the list is created.
-    [( )] Lists can be assigned to variables.
-    [( )] Lists can contain a mix of data types.
-    [(X)] Lists are unordered; you cannot access an item in the list by its position.
-    ***
-    <div class = "answer">
+Which of the following is FALSE about lists? Select all that apply.
 
-    Lists are changeable, can be stored in variables for later use (even though we didn't explicitly discuss it, the list on the previous page was assigned to the variable `produce`), can contain a mix of data types, and they are **ordered**, meaning that items remain in the position that they were put into the list. You can access or edit list items by value **or** position (also called the **index**).
+[( )] Lists are changeable; items can be added, removed, or replaced after the list is created.
+[( )] Lists can be assigned to variables.
+[( )] Lists can contain a mix of data types.
+[(X)] Lists are unordered; you cannot access an item in the list by its position.
+***
+<div class = "answer">
 
-    </div>
-    ***
+Lists are changeable, can be stored in variables for later use (even though we didn't explicitly discuss it, the list on the previous page was assigned to the variable `produce`), can contain a mix of data types, and they are **ordered**, meaning that items remain in the position that they were put into the list. You can access or edit list items by value **or** position (also called the **index**).
 
-2. Given the following list of numbers, what is the **index** of the number **15**?
+</div>
+***
 
-    `[2, 14, 9, 101, 15, 37]`
+Question 2
+==========
 
-    [( )] 5
-    [(X)] 4
-    [( )] 15
-    [( )] 6
-    ***
-    <div class = "answer">
+Given the following list of numbers, what is the **index** of the number **15**?
 
-    Indexing in Python begins with **0**, not 1, and so the index of 15, which is the fifth item in the list, is **4**.  
+`[2, 14, 9, 101, 15, 37]`
 
-    </div>
-    ***
+[( )] 5
+[(X)] 4
+[( )] 15
+[( )] 6
+***
+<div class = "answer">
+
+Indexing in Python begins with **0**, not 1, and so the index of 15, which is the fifth item in the list, is **4**.  
+
+</div>
+***
 
 
 ## Dictionaries
@@ -435,51 +441,61 @@ We've just gone through quite a few useful list and dictionary methods, and you 
 
 ### Quiz: Dictionaries
 
-1. True or False: Duplicate key-value pairs are allowed in dictionaries.
+Question 1
+==========
 
-    [( )] True
-    [(X)] False
-    ***
-    <div class = "answer">
+True or False: Duplicate key-value pairs are allowed in dictionaries.
 
-    While **values** can be repeated in a dictionary, each **key** must be unique. However, you can have multiple values for a key by putting those values in a list.
+[( )] True
+[(X)] False
+***
+<div class = "answer">
 
-    </div>
-    ***
+While **values** can be repeated in a dictionary, each **key** must be unique. However, you can have multiple values for a key by putting those values in a list.
 
-2. How would you access all of the countries (the "keys") in the dictionary below? 
+</div>
+***
 
-     `capital_cities = {"Afghanistan" : "Kabul", "Albania" : "Tirana", "Algeria" : "Algiers", "Andorra" : "Andorra la Vella"}`
+Question 2
+==========
 
-    [[capital_cities.keys()]]
-    <script>
+How would you access all of the countries (the "keys") in the dictionary below using a method? 
+
+`capital_cities = {"Afghanistan" : "Kabul", "Albania" : "Tirana", "Algeria" : "Algiers", "Andorra" : "Andorra la Vella"}`
+
+[[capital_cities.keys()]]
+<script>
   let input = "@'input".trim();
   input == "capital_cities.keys()";
 </script>
-    ***
-    <div class = "answer">
+***
+<div class = "answer">
 
-    To return the keys of a dictionary, you use the `.keys()` dictionary method on the `capital_cities` dictionary. So the correct answer is `capital_cities.keys()`.
+To return the keys of a dictionary, you use the `.keys()` dictionary method on the `capital_cities` dictionary. So the correct answer is `capital_cities.keys()`.
 
-    </div>
-    ***
+</div>
+***
 
-3. How would you add the the country of Angola and its capital city of Luanda to the dictionary below?
+Question 3
+==========
 
-    `capital_cities = {"Afghanistan" : "Kabul", "Albania" : "Tirana", "Algeria" : "Algiers", "Andorra" : "Andorra la Vella"}`
+How would you add the the country of Angola and its capital city of Luanda to the dictionary below?
 
-    [[capital_cities["Angola"] = "Luanda"]]
-    <script>
-    let input = "@'input".replace(/\s/g, "");
-    input == 'capital_cities["Angola"]="Luanda"' || input == "capital_cities['Angola']='Luanda'";
-    </script>
-    ***
-    <div class = "answer">
+`capital_cities = {"Afghanistan" : "Kabul", "Albania" : "Tirana", "Algeria" : "Algiers", "Andorra" : "Andorra la Vella"}`
 
-    To add a new key-value pair to a dictionary, we use subsetting notation.
+[[capital_cities["Angola"] = "Luanda"]]
+<script>
+let input = "@'input".replace(/\s/g, "");
+input == 'capital_cities["Angola"]="Luanda"' || input == "capital_cities['Angola']='Luanda'";
+</script>
+***
+<div class = "answer">
 
-    </div>
-    ***
+To add a new key-value pair to a dictionary, we use subsetting notation.
+
+</div>
+***
+
 
 ### Dictionary usefulness
 
@@ -535,3 +551,8 @@ Whenever you need to associate values with unique keys, dictionaries are the bes
 * There are many helpful resources on [python.org](https://www.python.org/), including a [Beginner's Guide](https://wiki.python.org/moin/BeginnersGuide) and [FAQs](https://docs.python.org/3/faq/).
 
 * Python docs also has [more detailed information about using lists, dictionaries, and other data structures](https://docs.python.org/3/tutorial/datastructures.html). 
+
+
+## Recap
+
+@recap
