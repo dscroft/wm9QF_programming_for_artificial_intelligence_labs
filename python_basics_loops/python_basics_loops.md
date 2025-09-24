@@ -1,5 +1,5 @@
 <!--
-module_id: python_basics_loops_conditionals
+module_id: python_basics_loops
 author:   Meredith Lee
 email:    leemc@chop.edu
 version: 1.2.2
@@ -10,11 +10,11 @@ language: en
 narrator: UK English Female
 mode: Textbook
 
-title: Python Basics: Loops and Conditionals
+title: Python Basics: Loops
 
-comment: Learn how to use loops and conditional statements in Python. 
+comment: Learn how to use loops in Python. 
 
-long_description: Before using Python for data analysis, there are some basics to learn that will set the foundation for more advanced Python coding. This module will teach you about how to loop through sequences and use conditional statements. 
+long_description: Before using Python for data analysis, there are some basics to learn that will set the foundation for more advanced Python coding. This module will teach you about how to loop through sequences. 
 
 estimated_time_in_minutes: 20
 
@@ -25,7 +25,6 @@ Learners should be familiar with using [functions and methods](https://liascript
 @learning_objectives
 
 - Iterate through lists using loops
-- Utilize conditional statements
 
 @end
 
@@ -57,23 +56,23 @@ coding_language: python
 
 Previous versions: 
 
-- [1.0.1](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/5e1bbae6792dc5adc7cfcc99860b0f9e1447daa6/python_basics_loops_conditionals/python_basics_loops_conditionals.md#) Initial version
+- [1.0.1](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/5e1bbae6792dc5adc7cfcc99860b0f9e1447daa6/python_basics_loops/python_basics_loops.md#) Initial version
 @end
 
 link:  ../assets/styles.css
 import: ../module_templates/macros.md
 import: ../module_templates/macros_python.md
-import: https://raw.githubusercontent.com/LiaTemplates/Pyodide/master/README.md
+import: https://dscroft.github.io/Pyodide/README.md
 import: https://github.com/LiaScript/CodeRunner/blob/master/README.md
 -->
-
-# Attribution
-
-@attribution
 
 # Python Basics: Loops and Conditional Statements
 
 @overview
+
+## Attribution
+
+@attribution
 
 ## Lesson Preparation
 
@@ -83,7 +82,7 @@ import: https://github.com/LiaScript/CodeRunner/blob/master/README.md
 
 ## Introduction
 
-In programming, we often need to perform a task repeatedly (or **iteratively**), or only if certain conditions are met. Iterating over an series of inputs and performing a specified task on each input is accomplished using **loops**. In some cases though, we only want to perform a task sometimes (either within a loop or not); for this, we use **conditional statements**. Loops and conditional statements are not unique to Python-- they appear in almost every language! This module will discuss how these concepts work in Python. 
+In programming, we often need to perform a task repeatedly (or **iteratively**), or only if certain conditions are met. Iterating over an series of inputs and performing a specified task on each input is accomplished using **loops**.  Loops are not unique to Python-- they appear in almost every language! This module will discuss how these concepts work in Python. 
 
 ## Loops
 
@@ -184,150 +183,6 @@ According to our code, we know that `j` is the square of `i`, so that's the numb
 </div>
 ***
 
-## Conditional statements: If-else
-
-Sometimes when you're working with Python, you might want your code to do different things in different circumstances. You handle this with an `if-else`, or **conditional**, statement.
-
-Conditional statements often make use of **comparison operators**. Comparison operators compare values and return a `True` or `False` (also known as a [**boolean value**](https://www.geeksforgeeks.org/boolean-data-type-in-python/)), depending on the outcome of the comparison. Some important comparison operators include:
-
-* `==`: In Python, this is used to test **equality** (be sure not to use  the single equals sign `=`, which is used for assigning values to variables). So `9 == 18` asks the questions "is 9 equal to 18?", which would evaluate to `False`.
-
-* `!=`: not equal to.
-
-* `<`: less than.
-
-* `>`: greater than.
-
-* `<=`: less than or equal to.
-
-* `>=`: greater than or equal to.
-
-Let's look at a simple example of some code that utilizes conditionals.
-
-```python
-name = "Pythonista"
-# We're testing below to see if the value of name is a string.
-# This will either evaluate to True or False.
-if type(name) == str: 
-	print("Welcome, "+ name+"!")
-else:
-	print("Please enter a name.")
-```
-@Pyodide.eval
-
-**Your Turn**: Try changing the value assigned to `name` from "Pythonista" to a number, and see what happens! What happens if you remove the quotation marks?
-
-### Multiple conditions
-
-
-You also aren't confined to a single "if-else" statement! You can have multiple conditions and define multiple results. The simplest way to do this is with the keyword `elif`. Run the following code cell, and then change the number assigned to `num` and see how the output changes.
-
-```python
-num = 1
-if num < 10:
-	print("This number is less than 10")
-elif 10 < num < 100:
-	print("This number is more than 10 but less than 100")
-elif num >= 100:
-	print("This number is greater than or equal to 100")
-else:
-	print("This number equals 10")
-```
-@Pyodide.eval
-
-<div class = "warning">
-<b style="color: rgb(var(--color-highlight));">Warning!</b><br>
-
-When coding in Python, it is important to remember that lines and blocks of code are run **in order**. This means that if your instructions aren't in logical order, you can get outputs that are "wrong."
-
-</div>
-
-**Your Turn**: Before you run the following code cell, predict what the outcome will be.
-
-```python
-num = 1
-if num < 100:
-	print("This number is less than 100")
-elif num < 10:
-	print("This number is less than 10")
-elif num >= 100:
-	print("This number is greater than or equal to 100.")
-else:
-	print("This number equals 10")
-```
-@Pyodide.eval
-
-Was your prediction correct?
-
-Because the conditional statements are run in order, and in the code above the first statement returns `True`, Python never gets to the second statement, even though it is also `True`! This behavior is important to remember when you're creating multiple conditional statements.
-
-### Conditionals in loops
-
-Python becomes very powerful when you start combining conditionals and loops.
-
-Remember when we looped through a list of pieces of candy that some children started with and calculated the number they would have if we gave each child 5 more pieces? Let's suppose that the next day instead of giving all of the children more candy, only the children who have fewer than 10 pieces of candy get another piece. We can still calculate how many pieces of candy each child has now (even though we're making the very unlikely assumption that none of the children have eaten any of their candy from before!).
-
-```python
-candy1 = [8, 15, 16, 11, 12]
-candy2 = []
-for i in candy1:
-	if i < 10: #tests to see if each student has fewer than 10 pieces of candy
-		j = i + 1
-	else:
-		j = i
-	candy2.append(j)
-print(candy2)
-```
-@Pyodide.eval
-
-In the case above, we've used an if-else statement within our `for` loop! These loops can actually get quite complex for some tasks, but breaking down the loop and testing out the various pieces is often a good strategy.
-
-### Quiz: Conditional statements
-
-The following quiz questions are about the following code:
-
-```python
-candy1 = [8, 15, 16, 11, 12]
-candy2 = []
-for i in candy1:
-	if i < 10: #tests to see if each student has fewer than 10 pieces of candy
-		j = i + 2
-	#Missing code here
-	else:
-		j = i
-	candy2.append(j)
-print(candy2)
-```
-@Pyodide.eval
-
-1. If we wanted to add another conditional statement at line 6 of the code cell above that would give 1 piece of candy to children who start with between 10 to 15 pieces (inclusive), what keyword would we use to start that line?
-
-    [( )] `for`
-    [( )] `if`
-    [(X)] `elif`
-    [( )] `else`
-    ***
-    <div class = "answer">
-
-    Because we're checking for multiple conditions, we use the `elif` keyword. We use `if` for the first condition that we are testing; `else` is used at the end to catch anything that hasn't been explicitly handled by our preceding conditions. And we know that `for` is the keyword to begin a loop!
-
-    </div>
-    ***
-
-
-2. How could you write the comparison at line 6 so that each child gets the correct number of pieces of candy? Select all that apply.
-
-    [[X]] `10 <= i <= 15`
-    [[ ]] `10 < i < 15`
-    [[ ]] `i >= 10`
-    [[X]] `10 <= i < 16`
-    ***
-    <div class = "answer">
-
-    Because we want to give an additional piece of candy to any student who started with between 10 and 15 pieces, we want to test if `i` is greater than or equal to 10, but less than or equal to 15 (which could also be expressed as less than 16, since we're working with integers). So the first and last choices are correct.
-
-    </div>
-    ***
 
 ## Additional Resources
 
@@ -335,6 +190,6 @@ print(candy2)
 
 * The Python documentation also has [more details and examples about loops and conditional statements](https://docs.python.org/3/tutorial/controlflow.html). 
 
-## Feedback
+## Recap
 
-@feedback
+@recap
