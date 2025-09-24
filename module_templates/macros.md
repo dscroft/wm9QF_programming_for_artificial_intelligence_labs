@@ -31,25 +31,13 @@ Previous versions:
 
 **Estimated time to completion:** @estimated_time_in_minutes minutes
 
-**Pre-requisites**
-
-@pre_reqs
-
 **Learning Objectives**
 
 After completion of this module, learners will be able to:
 
 @learning_objectives
 
-**Version History**
-
-This version (@version): @current_version_description
-
-@version_history
-
 </div>
-
-Looking for other modules on this topic or other topics related to data analytics and data science in biomedicine?  Please see [our complete list of educational modules](https://arcus.github.io/education_modules/list_of_modules) or consider trying our [prototype curriculum builder](https://learn.arcus.chop.edu).
 
 @end
 
