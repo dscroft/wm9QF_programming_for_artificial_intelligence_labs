@@ -57,17 +57,16 @@ Previous versions:
 link:  ../assets/styles.css
 import: ../module_templates/macros.md
 import: ../module_templates/macros_python.md
-import: https://raw.githubusercontent.com/LiaTemplates/Pyodide/master/README.md
-import: https://github.com/LiaScript/CodeRunner/blob/master/README.md
+import: https://dscroft.github.io/Pyodide/README.md
 -->
-
-# Attribution
-
-@attribution
 
 # Python Basics: Functions, Methods, and Variables
 
 @overview
+
+## Attribution
+
+@attribution
 
 ## Lesson Preparation
 
@@ -175,14 +174,77 @@ Notice that in the above example, we have passed the `type("Hello World!")` func
 
 </div>
 
+
+#### Default data types in Python
+
+Python has several default (built-in) variable types, each designed to store different kinds of data. 
+Here are some of the most common:
+
+| Data Type | keyword | Description | Example |
+|-----------|---------|-------------|---------|
+| Integer   | `int`   | Whole numbers, positive or negative, without decimals. | `age = 25` |
+| Float     | `float` | Numbers with a decimal point. | `temperature = 36.6` |
+| String    | `str`  | Sequences of characters, enclosed in single or double quotes. | `name = "Alice"` |
+| Boolean   | `bool`  | Logical values representing `True` or `False`. | `is_student = True` |
+| List      | `list`  | Ordered, changeable collections of items, enclosed in square brackets. | `fruits = ["apple", "banana", "cherry"]` |
+
+These built-in types are the foundation for working with data in Python. 
+It is also possible to create your own custom data types.
+
+-----------
+
+Try and declare a float variable called `x` with a value of 10 in python.
+
+```python
+# Define a variable x with float value 10
+
+```
+@Pyodide.eval
+
+**Test your code:**
+
+```python
+try:
+    x
+except NameError:
+    print("Test failed, variable x is not defined.")
+else:
+    if isinstance(x, float):
+        if x == 10.0:
+            print("Test passed!")
+        else:
+            print(f"Test failed, x is a float but has value {x}.")
+    elif isinstance(x, int) and x == 10:
+        print("Test failed, although x does have a value of 10, it is an integer and not a float.")
+    else:
+        print(f"Test failed, x is defined but is of type {type(x).__name__} and has value {x}.")
+```
+@Pyodide.hide
+
+
+<div class = "important">
+
+<b style="color: rgb(var(--color-highlight));">Important note</b><br>
+
+Making sure that you are using the correct data types is important in Python as functions and methods may behave differently depending on the data type of the argument you pass to them.
+
+Ensuring the correct types can be more challenging in Python than in some other programming languages because Python is a "dynamically typed" language.
+This means that variable types can change as the program runs, which can lead to unexpected behavior if not carefully managed.
+
+</div>
+
+
 ### Quiz: Functions and methods
 
-1. Which of the following are valid examples of Python code? Select all that apply.
+Question 1
+==========
 
-    [[X]] `len("Python is awesome!")`
-    [[X]] `"python".upper()`
-    [[X]] `type("4.3")`
-    [[X]] `type(True)`
+Which of the following are valid examples of Python code? Select all that apply.
+
+[[X]] `len("Python is awesome!")`
+[[X]] `"python".upper()`
+[[X]] `type("4.3")`
+[[X]] `type(True)`
 ***
 <div class = "answer">
 
@@ -203,12 +265,16 @@ print(x)
 ```
 @Pyodide.eval
 
-2. To check that the string "Python is awesome!" ends in an exclamation point, we can use the code ` "Python is awesome!".endswith("!")`. In this case, the boolean value `True` will be returned, since "Python is awesome!" does indeed end in an exclamation point. What is `.endswith()` an example of?
 
-    [(X)] A method
-    [( )] A function
-    [( )] A string
-    [( )] A float
+Question 2
+==========
+
+To check that the string "Python is awesome!" ends in an exclamation point, we can use the code ` "Python is awesome!".endswith("!")`. In this case, the boolean value `True` will be returned, since "Python is awesome!" does indeed end in an exclamation point. What is `.endswith()` an example of?
+
+[(X)] A method
+[( )] A function
+[( )] A string
+[( )] A float
 ***
 <div class = "answer">
 
@@ -218,6 +284,7 @@ A function would have the syntax `function(argument)`. A float (short for "float
 
 </div>
 ***
+
 
 ## Variables
 
@@ -262,6 +329,9 @@ If, for example, you typed `dogs` without first defining it as a variable, you w
 
 ### Quiz: Variables
 
+Question 1
+==========
+
 True or False: Once you assign a value to a variable, you can never change the value of that variable.
 
 [( )] True
@@ -274,6 +344,29 @@ Changing the value of a variable is as simple as editing the value in the assign
 </div>
 ***
 
+Question 2
+==========
+
+What is the output of the following code?
+
+```python
+x = "5"
+y = "10"
+print(x + y)
+```
+
+[( )] 15
+[(X)] 510
+***
+<div class = "answer">
+
+The key thing to notice here is that both `x` and `y` are strings, because they are in quotation marks. 
+They are not, despite first appearances, numbers.
+
+The `+` operator, when used with strings, concatenates (or joins) the two strings together, so the output is "510". If `x` and `y` were numbers (for example, if we had defined them as `x = 5` and `y = 10`), then the output would be 15.
+</div>
+***
+
 
 ## Additional Resources
 
@@ -283,6 +376,3 @@ Changing the value of a variable is as simple as editing the value in the assign
 
 * Jupyter notebooks are a great option for doing data analysis with Python-- [check out this Jupyter notebook demo](https://jupyter.org/try-jupyter/lab/), then open "notebooks" and look at "Intro.ipynb" to see how they work.
 
-## Feedback
-
-@feedback
