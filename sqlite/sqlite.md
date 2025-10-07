@@ -42,7 +42,7 @@ Previous versions:
 @end
 
 import: ../module_templates/macros.md
-import: https://raw.githubusercontent.com/LiaTemplates/Pyodide/master/README.md
+import: https://dscroft.github.io/Pyodide/README.md
 mport: https://github.com/LiaScript/CodeRunner/blob/master/README.md
 
 
@@ -178,11 +178,68 @@ with closing(sqlite3.connect(filename)) as con:
     con.executemany("INSERT INTO users (username, password) VALUES (?, ?);", data)
     con.commit()
 
-f"Creating {filename} {"successfull" if os.path.exists(filename) else "unsuccessful"}."
+f"Creating {filename} {"successful" if os.path.exists(filename) else "unsuccessful"}."
 ```
 @end
 
+@basic_import
+<div style="display: none;">
+```python @Pyodide.exec
+import sqlite3
+```
+</div>
+@end
+
+link:  ../assets/styles.css
+import: ../module_templates/macros.md
+import: ../module_templates/macros_sql.md
+
 -->
+
+# Demo
+
+```python
+import sqlite3
+
+con = sqlite3.connect(":memory:")
+con.execute("CREATE TABLE demo (value TEXT UNIQUE);")
+
+try:
+  with con:
+    con.execute("INSERT INTO demo VALUES ('example1');")
+    con.execute("INSERT INTO demo VALUES ('example2');")
+    con.execute("INSERT INTO demo VALUES ('example1');")
+except sqlite3.IntegrityError as e:
+    print(f"Error while inserting: {e}")
+
+with con:
+    print("Table contents: ")
+    print(con.execute("SELECT * FROM demo;").fetchall())
+
+con.close()
+```
+@Pyodide.eval
+
+
+```python
+import sqlite3
+
+con = sqlite3.connect(":memory:")
+
+cur1 = con.cursor()
+cur2 = con.cursor()
+
+cur1.execute("CREATE TABLE demo (value TEXT);")
+cur1.execute("INSERT INTO demo VALUES ('example1');")
+cur1.execute("INSERT INTO demo VALUES ('example2');")
+cur1.execute("INSRT INTO demo VALUES ('example3');")
+
+print( cur2.execute("SELECT * FROM demo;").fetchall() )
+
+con.close()
+```
+@Pyodide.eval
+
 
 # SQL and Python
 
@@ -208,12 +265,13 @@ In summary, accessing databases from a programming language bridges the gap betw
 Python has significant benefits for database access over older languages such a Java, C or C++.
 In those languages you would typically need to use an external library to access the database and the functionality of said library would vary from database to database.
 
-In Python, Guido van Rossum, the creator of Python, has made it a priority to ensure that Python has a standard interface for database access. 
+In Python, Guido van Rossum (Python's benevolent dictator for life), has made it a priority to ensure that Python has a standard interface for database access. 
 This means that you can use the same code to access different databases, such as SQLite, MySQL, PostgreSQL, and others.
 This is done through the [Python Database API Specification](https://www.python.org/dev/peps/pep-0249/), which defines a standard interface for database access in Python. 
 PEP 249 means that you can use the same code to access different databases, and you can easily switch between databases without having to change your code.
 
 There may be additional functionality that is specific to a particular database, but the core functionality of connecting to a database, executing queries, and retrieving results is the same across all databases.
+This means that that the concepts you learn hear are directly applicable to any other database engine you may use in the future.
 
 
 ## SQLite
@@ -335,6 +393,13 @@ To create an in-memory database, you can use the special database name `:memory:
 con = sqlite3.connect(":memory:")
 ```
 
+<div class = "important">
+<b style="color: rgb(var(--color-highlight));">Important note</b><br>
+
+Remember, nothing is saved to disk when using an in-memory database. 
+When the connection is closed, the database and all of its contents are lost.
+
+</div>
 
 
 # Python Database API
@@ -348,18 +413,14 @@ In this section we will look at the main components of the Python Database API w
 A connection is an object that represents a connection to a database.
 In Python, you can create a connection object using the `connect()` method of the `sqlite3` module.
 
-If you need to connect to multiple databases you can create multiple connection objects, one for each database.
+If you need to connect to multiple databases, you can create multiple connection objects, one for each database.
 
 It is important to close the connection when you are done with it, as this will free up resources and ensure that any changes made to the database are saved.
-This is done using the `close()` method of the connection object when you are done with the database.
+This is done using the `close()` method of the connection object when you are done.
 
 ----------------------------
 
-A more pythonic way to handle connections is to use a `with` statement, which will automatically tidy up after a block of code, even if there has been an error.
-
-```python @Pyodide.exec
-import sqlite3
-```
+@basic_import
 
 **Explicit connection management**
 
@@ -372,36 +433,145 @@ con.close()
 ```
 @Pyodide.eval
 
-----------------------------
 
-**Context manager approach**
+
+## Commit and rollback
+
+When working with databases, it is important to ensure that changes made to the database are saved correctly.
+
+This is done using transactions, which are a way to group multiple changes together and ensure that they are either all saved or all discarded.
+
+This is useful when you are making multiple changes to the database and want to ensure that they are all saved correctly, or if you want to discard all changes if there is an error.
+
+For example, if you are inserting multiple rows into a table or you are trying to update multiple tables, you want to ensure that either all of the changes are made or none of them are made.
+
+- `commit()` is used to save all changes made during the transaction.
+  - Will generally be used if all changes were successful.
+- `rollback()` is used to discard all changes made during the transaction.
+  - Will generally be used if there was an error and you want to discard all changes.
+
+<div class = "important">
+<b style="color: rgb(var(--color-highlight));">Important note</b><br>
+
+`commit()` and `rollback()` execute the `COMMIT` and `ROLLBACK` SQL commands respectively.
+There is nothing stopping you from running these using the `execute()` method of the connection or cursor object, but it is not very Pythonic.
+
+</div>
+
+---------------------
+
+Let's look at an example.
+In this example we are creating a table with a unique constraint on the `value` column and then trying to add three rows, two of which are identical and will therefore violate the unique constraint causing an error.
+
+@basic_import
+
+```python
+con = sqlite3.connect(":memory:")
+
+con.execute("CREATE TABLE demo (value TEXT UNIQUE);")
+
+try:
+    con.execute("INSERT INTO demo VALUES ('example1');")
+    con.execute("INSERT INTO demo VALUES ('example2');")
+    con.execute("INSERT INTO demo VALUES ('example1');")
+except sqlite3.IntegrityError as e:
+    print(f"Error while inserting: {e}")
+else:
+    print("Everything is fine")
+
+print(f"Rows in table:", con.execute("SELECT * FROM demo;").fetchall())
+
+con.close()
+```
+@Pyodide.eval
+
+As you can see, the error occurs when we try to insert the second 'example1' row, but the first two rows are still in the table leaving our data partially inserted.
+
+Try and modify the code to ensure that either all the rows are inserted or none of them are.
+
+<details>
+<summary>**Still stuck?  Click to see our solution!**</summary>
+
+<br/>
+
+<div class = "answer">
+
+Here's the code we used:
+
+```python
+con = sqlite3.connect(":memory:")
+
+con.execute("CREATE TABLE demo (value TEXT UNIQUE);")
+
+try:
+    con.execute("INSERT INTO demo VALUES ('example1');")
+    con.execute("INSERT INTO demo VALUES ('example2');")
+    con.execute("INSERT INTO demo VALUES ('example1');")
+except sqlite3.IntegrityError as e:
+    print(f"Error while inserting: {e}")
+    con.rollback()
+else:
+    print("Everything is fine")
+    con.commit()
+
+print(f"Rows in table:", con.execute("SELECT * FROM demo;").fetchall())
+
+con.close()
+```
+@Pyodide.eval
+
+</div>
+
+</details>
+
+
+### Context manager approach
+
+All of this does add a fair amount of boilerplate code that has to be included repeatedly, but we can simplify this.
+
+Instead of calling `commit()` and `rollback()` explicitly, we can use a `with` statement to handle this for us.
+
+@basic_import
+
+```python
+con = sqlite3.connect(":memory:")
+
+con.execute("CREATE TABLE demo (value TEXT UNIQUE);")
+try:
+    with con:
+        con.execute("INSERT INTO demo VALUES ('example1');")
+        con.execute("INSERT INTO demo VALUES ('example2');")
+        con.execute("INSERT INTO demo VALUES ('example1');")
+except sqlite3.IntegrityError as e:
+    print(f"Error while inserting: {e}")
+
+print(f"Rows in table:", con.execute("SELECT * FROM demo;").fetchall())
+```
+@Pyodide.eval
+
+-------------------------------------
+
+We can also use a context manager to handle the connection itself but this is slightly more complex.
+
+We need to explicitly tell python to call the `.close()` method of the connection object instead of just tidying up the transaction with `commit()` or `rollback()` as we have seen previously.
+
 
 ```python
 from contextlib import closing
 
 with closing(sqlite3.connect(":memory:")) as con:
-    cur = con.cursor()
-    cur.execute("SELECT sqlite_version();")
-    print(cur.fetchall())
+    con.execute("SELECT sqlite_version();")
+
+try:
+    con.execute("SELECT sqlite_version();")
+except Exception as e:
+    print(f"Error: {e}")
 ```
 @Pyodide.eval
 
--------------------
 
-We have to use the `closing` context manager here because without it the default context manager behaviour of the `with` statement clean up the query, not end the entire connection.
-By which we mean that the default behavior is to either `commit` or `rollback` the current SQL transation at the end of the `with` block, but not close the connection itself.
 
-This means that the connection will remain open until the program ends, which can be desirable in some cases.
 
-```python
-with sqlite3.connect(":memory:") as con:
-    cur = con.cursor()
-    print(cur.execute("SELECT sqlite_version()").fetchall())
-    # con.close() is not called here, so the connection remains open
-print(cur.execute("SELECT sqlite_version()").fetchall())
-con.close()
-```
-@Pyodide.eval
 
 
 
