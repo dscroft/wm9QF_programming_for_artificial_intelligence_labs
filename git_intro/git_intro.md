@@ -168,6 +168,31 @@ There are other big players in the market that use git (for example, git reposit
 That is not to say that GitHub is the only option. Other popular git repository hosting services include [GitLab](https://about.gitlab.com/) and [Bitbucket](https://bitbucket.org/product). All of these services have similar functionality, but differ in their pricing models, user interfaces, and some features.
 
 
+## Filetypes
+
+Although version control systems can be used with any type of file, they work best with plain text files. 
+Plain text files are files that contain only text and have no special formatting or metadata. Examples of plain text files include:
+
+- Source code files (e.g., `.py`, `.js`, `.java`)
+- Configuration files (e.g., `.json`, `.yaml`, `.ini`)
+- Markup files (e.g., `.md`, `.html`, `.xml`)
+- Documentation files (e.g., `.txt`, `.rst`)
+
+The reason that version control systems work best with plain text files is that they can easily track changes to the text itself, rather than being confused by formatting or metadata changes.
+For example, Word documents (`.docx` files) are actually .zip files that contain a number of different folders and files, including XML files that contain the actual text of the document as well any images and other metadata
+When you make a change to a Word document, the entire zip folder is changed, even if you only made a small change to the text and because it is a binary file what that change actually represents is not clear to the version control system.
+
+This is in contrast to plain text files, where the file is simply a sequence of characters, and any changes to the file are easily tracked by the version control system.
+
+<div class="important">
+<b style="color: rgb(var(--color-highlight));">Important note</b><br>
+
+*This* lab material was written in [LiaScript](https://liascript.github.io/), which is a plain text format and was version controlled using git with the repository hosted on Github. 
+Because of this, we can easily see the changes that were made to this file over time and who made them, including the when this section was added to the file.
+
+</div>
+
+
 ## Quiz: Version control
 
 Imagine you drafted an excellent paragraph for a paper you are writing, but later ruin it. How would you retrieve the **excellent** version of your conclusion? Is it even possible? Take a moment to write your thoughts in the box below, then click the checkmark to see our solution.
