@@ -19,10 +19,10 @@ Learners should be familiar with basic programming concepts and the Python progr
 @end
 
 @learning_objectives  
-- Describe what Python is and why they might want to use it for research
-- Identify several ways to write Python code
-- Understand the purpose and utility of a Jupyter notebook
-- Download Python and Jupyter, and access a Python notebook in Google Colab
+- Describe what unit testing is and why it is important in Python
+- Identify the main components of a Python unit test
+- Understand how to use the unittest framework to write and run tests
+- Understand the steps of the Test Driven Development (TDD) cycle
 
 @end
 
@@ -67,6 +67,7 @@ Previous versions:
 @end
 
 @unittest_fix
+<div style="display: block;">
 ```python @Pyodide.exec
 import unittest
 
@@ -81,12 +82,21 @@ if 'original_main' not in globals():
 
 "Applied unittest fix"
 ```
+</div>
+@end
+
+@unittest_run
+```python
+unittest.main()
+""
+```
+@Pyodide.hide
 @end
 
 link:  ../assets/styles.css
 import: ../module_templates/macros.md
 import: ../module_templates/macros_python.md
-import: https://raw.githubusercontent.com/LiaTemplates/Pyodide/master/README.md
+import: https://dscroft.github.io/Pyodide/README.md
 import: https://github.com/LiaScript/CodeRunner/blob/master/README.md
 
 -->
@@ -100,6 +110,7 @@ import: https://github.com/LiaScript/CodeRunner/blob/master/README.md
 ## Unit Testing
 
 Unit testing is a software testing technique where individual units or components of a software are tested in isolation from the rest of the application. The primary goal is to validate that each unit of the software performs as expected.
+
 
 ## What are Test Cases?
 
@@ -330,10 +341,11 @@ Write a failing tests that defines the desired functionality.
 
 In this case we want to count the number of vowels in a string.
 
+@unittest_fix
+
 ```python
 # test_myvowels.py
 import unittest
-from myvowels import count_vowels
 
 class TestCountVowels(unittest.TestCase):
     def test_consonants(self):
@@ -341,10 +353,29 @@ class TestCountVowels(unittest.TestCase):
 
     def test_all_vowels(self):
         self.assertEqual(count_vowels("aeiou"), 5)
+
+if __name__ == "__main__":
+    unittest.main()
 ```
+@Pyodide.eval
 
 At this point, running the tests will fail because `count_vowels` does not exist yet.
 But make sure to run the tests to confirm they fail as expected.
+
+<div class = "warning">
+<b style="color: rgb(var(--color-highlight));">Warning</b><br>
+
+If you complete the later steps and then return to this page, the tests might pass because the function will have been implemented. To start fresh and see the tests fail as intended, click the button below to reset the environment.
+
+```python
+# Remove count_vowels if it exists in the current environment
+if 'count_vowels' in globals():
+    del count_vowels
+```
+@Pyodide.hide
+
+</div>
+
 
 
 ### 2. Green Phase
@@ -357,11 +388,21 @@ def count_vowels(string):
     vowels = "aeiou"
 
     count = 0
-    for char in string
+    for char in string:
         if char in vowels:
             count += 1
     return count
 ```
+@Pyodide.eval
+
+**Run the tests again**
+
+```python
+unittest.main()
+""
+```
+@Pyodide.hide
+
 
 Now, running the tests should pass.
 If the tests do not pass, adjust the implementation until they do.
@@ -381,6 +422,15 @@ def count_vowels(string):
     vowels = "aeiou"
     return len([char for char in string if char in vowels])
 ```
+@Pyodide.eval
+
+**Run the tests again**
+
+```python
+unittest.main()
+""
+```
+@Pyodide.hide
 
 
 ### 4. Red Phase (again)
@@ -391,7 +441,6 @@ So we write more failing tests covering this new functionality.
 ```python
 # test_myvowels.py
 import unittest
-from myvowels import count_vowels
 
 class TestCountVowels(unittest.TestCase):
     def test_consonants(self):
@@ -409,8 +458,15 @@ class TestCountVowels(unittest.TestCase):
     def test_mixed_case(self):
         self.assertEqual(count_vowels("An example sentence"), 7)
 ```
+@Pyodide.eval
 
-Make sure to run the tests to confirm they fail as expected.
+**Make sure to run the tests to confirm they fail as expected.**
+
+```python
+unittest.main()
+""
+```
+@Pyodide.hide
 
 <div class = "important">
 <b style="color: rgb(var(--color-highlight));">Important note</b><br>
@@ -428,13 +484,16 @@ If the tests pass by default, are they actually testing your code or do they jus
 Write the minimum code to pass the new tests.
 
 ```python
-# myvowels.py
 def count_vowels(string):
     vowels = "aeiouAEIOU"
     return len([char for char in string if char in vowels])
 ```
+@Pyodide.eval
 
-Now, running the tests should pass.
+**Check that the tests pass**
+
+@unittest_run
+
 If the tests do not pass, adjust the implementation until they do.
 
 
@@ -443,13 +502,19 @@ If the tests do not pass, adjust the implementation until they do.
 Our previous implementation was quite concise already but we can make it even more efficient by using a generator expression with `sum`.
 
 ```python
-# myvowels.py
 def count_vowels(string):
     vowels = set("aeiouAEIOU")
     return sum(1 for char in string if char in vowels)
 ```
+@Pyodide.eval
 
-Make sure to run the tests again to confirm they still pass.
+**Make sure to run the tests again to confirm they still pass.**
+
+```python
+unittest.main()
+""
+```
+@Pyodide.hide
 
 ------------------------
 
@@ -492,3 +557,8 @@ What is the first step in the TDD cycle?
 * If you're interested in practicing more with Google Colab, check out [this notebook looking at statistics](https://colab.research.google.com/drive/1zkW5Y0SoV3gMU6sQtlgnZsfR2GIXi6F_?usp=sharing).
 
 * If you are ready to actually write some Python code, check out the [Python Basics: Functions, Methods, and Variables](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/python_basics_variables_functions_methods/python_basics_variables_functions_methods.md#1) module.
+
+
+## Recap
+
+@recap
