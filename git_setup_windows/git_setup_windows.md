@@ -140,6 +140,16 @@ You will interact with Git through the Git Bash application, which should now ap
 
 ![A blank Git Bash window.](media/git_bash_new.png)<!-- style = "max-width:500px;"  border = 5px solid -->
 
+<div class = "important">
+<b style="color: rgb(var(--color-highlight));">Important note</b><br>
+
+Git bash uses the MinGW environment which is a minimalist port of the GNU toolchain to Windows.
+This means that the command line commands that you use in Git Bash are the same as those you would use in a Linux or Mac terminal.
+
+For example `ls` to list the files in a directory as opposed to `dir` which is used in the Windows Command Prompt.
+
+</div>
+
 
 ## Global configurations
 
