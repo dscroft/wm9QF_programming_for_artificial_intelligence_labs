@@ -12,7 +12,7 @@ mode: Textbook
 title: Python unit testing
 comment:  This module introduces the the concepts of unit testing in Python, and how to use the unittest framework to create and run tests.
 long_description: This module introduces the the concepts of unit testing in Python, and how to use the unittest framework to create and run tests.
-estimated_time_in_minutes: 20
+estimated_time_in_minutes: 40
 
 @pre_reqs
 Learners should be familiar with basic programming concepts and the Python programming language, including importing modules and using functions. Learners do not need to have access to Python or Jupyter notebooks on their own computers.
@@ -30,14 +30,6 @@ good_first_module: false
 collection: demystifying
 coding_required: false
 coding_language: python
-
-@sets_you_up_for
-- python_basics_variables_functions
-@end
-
-@depends_on_knowledge_available_in
-- demystifying_command_line
-@end
 
 @style
 .flex-container {
@@ -66,6 +58,12 @@ Previous versions:
 
 @end
 
+link:  ../assets/styles.css
+import: ../module_templates/macros.md
+import: ../module_templates/macros_python.md
+import: https://dscroft.github.io/Pyodide/README.md
+import: https://github.com/LiaScript/CodeRunner/blob/master/README.md
+
 @unittest_fix
 <div style="display: block;">
 ```python @Pyodide.exec
@@ -87,18 +85,14 @@ if 'original_main' not in globals():
 
 @unittest_run
 ```python
-unittest.main()
-""
+if "TestCountVowels" not in globals():
+    print("Unit tests not defined, please run the Red phase first.")
+else:
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestCountVowels)
+    unittest.TextTestRunner(verbosity=2).run(suite)
 ```
 @Pyodide.hide
 @end
-
-link:  ../assets/styles.css
-import: ../module_templates/macros.md
-import: ../module_templates/macros_python.md
-import: https://dscroft.github.io/Pyodide/README.md
-import: https://github.com/LiaScript/CodeRunner/blob/master/README.md
-
 -->
 
 
@@ -318,7 +312,6 @@ This approach helps ensure that your code is well-tested from the start, encoura
 Let's walk through a simple TDD cycle for a function that counts the number of vowels in a string.
 
 ``` ascii
-
              .-----------.  
             (     Red     )  
              '-----------'
@@ -329,9 +322,6 @@ Let's walk through a simple TDD cycle for a function that counts the number of v
    .-----------.        .-----------.  
   (  Refactor   ) <----(    Green    )  
    '-----------'        '-----------'
-
-
-
 ```
 
 
@@ -398,11 +388,13 @@ def count_vowels(string):
 **Run the tests again**
 
 ```python
-unittest.main()
-""
+if "TestCountVowels" not in globals():
+    print("Unit tests not defined, please run the Red phase first.")
+else:
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestCountVowels)
+    unittest.TextTestRunner(verbosity=2).run(suite)
 ```
 @Pyodide.hide
-
 
 Now, running the tests should pass.
 If the tests do not pass, adjust the implementation until they do.
@@ -427,8 +419,11 @@ def count_vowels(string):
 **Run the tests again**
 
 ```python
-unittest.main()
-""
+if "TestCountVowels" not in globals():
+    print("Unit tests not defined, please run the Red phase first.")
+else:
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestCountVowels)
+    unittest.TextTestRunner(verbosity=2).run(suite)
 ```
 @Pyodide.hide
 
@@ -463,8 +458,11 @@ class TestCountVowels(unittest.TestCase):
 **Make sure to run the tests to confirm they fail as expected.**
 
 ```python
-unittest.main()
-""
+if "TestCountVowels" not in globals():
+    print("Unit tests not defined, please run the Red phase first.")
+else:
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestCountVowels)
+    unittest.TextTestRunner(verbosity=2).run(suite)
 ```
 @Pyodide.hide
 
@@ -542,12 +540,41 @@ What is the first step in the TDD cycle?
 
 <div class = "answer" style = "width: 100%;">
 
-~~Test~~ Driven Development always starts with creating the tests first.
+~~Test~~ Driven Development always starts with creating the tests first and ensuring they fail.
+
+</div>
+
+***************
+Which step of the TDD cycle is focused on writing the smallest amount of code necessary to make the failing test pass?
+
+[[ ]] Red.  
+[[X]] Green.  
+[[ ]] Refactor.  
+[[ ]] Deploy.  
+***************
+
+<div class = "answer" style = "width: 100%;">
+
+The Green phase is where you write the minimal implementation required to satisfy the failing test, keeping changes small and focused.
 
 </div>
 ***************
 
+***************
+Which step of the TDD cycle is focused on writing the smallest amount of code necessary to make the failing test pass?
 
+[[ ]] Red.  
+[[X]] Green.  
+[[ ]] Refactor.  
+[[ ]] Deploy.  
+***************
+
+<div class = "answer" style = "width: 100%;">
+
+The Green phase is where you write the minimal implementation required to satisfy the failing test, keeping changes small and focused.
+
+</div>
+***************
 
 
 ## Additional Resources
