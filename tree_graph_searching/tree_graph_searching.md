@@ -636,7 +636,7 @@ Let's see AVL trees in action:
    <div class = "answer">
    The maximum allowed balance factor for any node in an AVL tree is 1, meaning the heights of the two child subtrees can differ by at most one.
    </div>       
-    ***
+   ***
 
 ## Recap
 
