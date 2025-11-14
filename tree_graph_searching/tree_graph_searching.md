@@ -207,18 +207,21 @@ dfs(a)
 </section>
 
 ### Quiz: DFS
-1. What is the main difference between Depth-First Search (DFS) and Breadth-First Search (BFS)?
-   [( )] DFS explores all neighbors before going deeper, BFS goes deep first
-   [(X)] DFS goes deep first, BFS explores all neighbors before going deeper
-   [( )] Both always find the shortest path
-   [( )] DFS is only for trees, BFS is only for graphs
-   ***
-   <div class = "answer">
-   DFS explores as far as possible along each branch before backtracking, while BFS explores all neighbors at the current depth before moving deeper.
-   </div>
-   ***
+
+1. Which statement about Depth-First Search (DFS) is true?
+
+  [( )] It always finds the shortest path.
+  [(X)] It explores as far as possible along each branch before backtracking.
+  [( )] It requires a queue to operate.
+  [( )] It cannot be implemented recursively.
+  ***
+  <div class = "answer">
+  DFS explores as far as possible along each branch before backtracking; it can be implemented recursively or with a stack.
+  </div>
+  ***
 
 2. Which data structure is typically used to implement DFS?
+
    [(X)] Stack
    [( )] Queue
    [( )] Heap
@@ -227,6 +230,7 @@ dfs(a)
    <div class = "answer">
    DFS is usually implemented using a stack (either explicitly or via recursion).
    </div>
+   ***
 
 
 ## Breadth-First Search (BFS)
@@ -254,6 +258,7 @@ As with DFS we can see the representation of the graph structure in multiple way
 ### Quiz: BFS
 
 1. Which data structure is typically used to implement BFS?
+   
    [( )] Stack
    [(X)] Queue
    [( )] Heap
@@ -265,6 +270,7 @@ As with DFS we can see the representation of the graph structure in multiple way
    ***
 
 2. What is a common application of BFS?
+   
    [(X)] Finding the shortest path in an unweighted graph
    [( )] Sorting a list
    [( )] Balancing a tree
@@ -273,6 +279,7 @@ As with DFS we can see the representation of the graph structure in multiple way
    <div class = "answer">
    BFS is commonly used to find the shortest path in unweighted graphs and for level-order traversal of trees.
    </div>
+   ***
 
 
 ## AVL Trees
@@ -449,17 +456,145 @@ Tree balance can be determined using the balance factor of the tree and subtrees
 ### Rotations
 
 With AVL trees, when an insertion or deletion causes the tree to become unbalanced, as indicated by the balance factor, AVL trees perform rotations to restore balance. 
-There are four types of rotations used:
 
-- Right Rotation (Single Rotation)
-- Left Rotation (Single Rotation)
-- Left-Right Rotation (Double Rotation)
-- Right-Left Rotation (Double Rotation)
+There are for possible imbalances depending on the balance factor of the node ($\text{bf}$) and it's left and right child balance factors ($\text{bfl}$ and $\text{bfr}$):
 
+| Case | Condition | Rotation |
+|------|-----------|-----------|
+| Left-Left (LL)   | $\text{bf} \geq +2$ and $\text{bfl} \geq 0$ | Right |
+| Right-Right (RR) | $\text{bf} \leq -2$ and $\text{bfr} \leq 0$ | Left |
+| Left-Right (LR)  | $\text{bf} \geq +2$ and $\text{bfl} < 0$    | Left then Right |
+| Right-Left (RL)  | $\text{bf} \leq -2$ and $\text{bfr} > 0$    | Right then Left |
+
+----------------------------------
+
+For LL and RR cases, a single rotation is sufficient to restore balance.
+
+<section class="flex-container">
+<div class="flex-child" style="min-width: 150px;">
+
+**Left-Left (LL) example**
+
+```ascii
+            .--.      
+          2( 30 )
+            .--.
+           /
+       .--.
+     1( 20 )
+       .--.
+      /
+  .--. 
+0( 10 )
+  .--. 
+```
+</div>
+
+<div class="flex-child" style="min-width: 150px;">
+
+**Right Rotation**
+
+```ascii
+            .--.      
+          2( 30 )
+            .--.
+           /
+       .--.
+     1( 20 ) <- Rotate 
+       .--.     around
+      /         this
+  .--.          node
+0( 10 )
+  .--. 
+```
+</div>
+
+<div class="flex-child" style="min-width: 150px;">
+
+**After Right Rotation**
+
+```ascii
+       .--.           
+     1( 20 )
+       .--.
+      /    \
+  .--.      .--.
+0( 10 )   0( 30 )
+  .--.      .--.
+```
+</div>
+</section>
+
+For the Right-Right (RR) case, a Left Rotation is performed in a similar manner but in the opposite direction.
+
+--------------------------
+
+The Left-Right (LR) and Right-Left (RL) cases require a double rotation to restore balance.
+
+Effectively we convert the LR or RL case into an LL or RR case, and then solve the new case as before.
+
+<section class="flex-container">
+<div class="flex-child" style="min-width: 150px;max-width: 300px;">
+
+**Left-Right (LR) example**
+
+<br>
+
+```ascii
+        .--.           
+      2( 60 )
+        .--.
+       /
+   .--.
+-1( 40 )
+   .--.
+       \
+        .--. 
+      0( 50 )
+        .--. 
+```
+</div>
+
+<div class="flex-child" style="min-width: 150px;max-width: 300px;">
+
+**Step 1: Left Rotation on left child**
+
+*Tree is now a Left-Left (LL) case*
+
+```ascii
+            .--.      
+          2( 60 )
+            .--.
+           /
+       .--.
+     1( 50 )
+       .--. 
+      /     
+  .--.      
+0( 40 )
+  .--. 
+```
+</div>
+
+<div class="flex-child" style="min-width: 150px;max-width: 300px;">
+
+**Step 2: Right Rotation**
+
+<br>
+
+```ascii
+       .--.           
+     1( 50 )
+       .--.
+      /    \
+  .--.      .--.
+0( 40 )   0( 60 )
+  .--.      .--.
+```
+</div>
+</section>
 
 -----------------------------------
-
-
 
 <div class="cool-fact">
 <b style="color: rgb(var(--color-highlight));">Alternatives</b><br>
@@ -479,7 +614,8 @@ Let's see AVL trees in action:
 
 ### Quiz: AVL Trees
 
-1) What is the primary purpose of an AVL tree?
+1. What is the primary purpose of an AVL tree?
+
    [( )] To store data in a linear fashion
    [(X)] To maintain balance in a binary search tree for efficient operations
    [( )] To sort data in ascending order
@@ -490,7 +626,8 @@ Let's see AVL trees in action:
    </div>
    ***
 
-2) What is the maximum allowed balance factor for any node in an AVL tree?
+2. What is the maximum allowed balance factor for any node in an AVL tree?
+
    [( )] 0
    [(X)] 1
    [( )] 2
