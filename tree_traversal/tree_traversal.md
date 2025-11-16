@@ -1,5 +1,5 @@
 <!--
-module_id: tree_graph_searching_algorithms
+module_id: tree_traversal
 author:   David Croft
 email:    david.croft@warwick.ac.uk
 version: 1.0.0
@@ -79,7 +79,7 @@ import: https://dscroft.github.io/Pyodide/README.md
 import: https://github.com/LiaScript/CodeRunner/blob/master/README.md
 -->
 
-# Tree and Graph Searching Algorithms
+# Tree Traversal Algorithms
 
 @overview
 
@@ -89,7 +89,7 @@ import: https://github.com/LiaScript/CodeRunner/blob/master/README.md
 
 ## Introduction
 
-Tree and graph searching algorithms are essential tools in computer science for exploring and processing hierarchical data structures. Trees are widely used to represent relationships, organize data, and enable efficient searching and sorting. In this module, we focus on three key algorithms: Breadth-First Search (BFS), Depth-First Search (DFS), and AVL Trees.
+Tree and graph traversal algorithms are essential tools in computer science for exploring and processing hierarchical data structures. Trees are widely used to represent relationships, organize data, and enable efficient searching and sorting. In this module, we focus on three key algorithms: Breadth-First Search (BFS), Depth-First Search (DFS), and AVL Trees.
 
 You will learn the concepts behind each algorithm, see how they work, and use interactive visualisations to deepen your understanding. A Python code example is provided for DFS only.
 

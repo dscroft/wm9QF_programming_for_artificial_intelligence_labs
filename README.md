@@ -18,7 +18,7 @@ Searching: https://liascript.github.io/course/?https://dscroft.github.io/wm9QF_p
 Sorting: https://liascript.github.io/course/?https://dscroft.github.io/wm9QF_programming_for_artificial_intelligence_labs/sorting_algorithms/sorting_algorithms.md
 
 
-Tree and graph searching: https://liascript.github.io/course/?https://dscroft.github.io/wm9QF_programming_for_artificial_intelligence_labs/tree_graph_searching/tree_graph_searching.md
+Tree traversal: https://liascript.github.io/course/?https://dscroft.github.io/wm9QF_programming_for_artificial_intelligence_labs/tree_traversal/tree_traversal.md
 
 ## Git
 
