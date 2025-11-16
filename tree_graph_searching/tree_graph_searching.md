@@ -284,12 +284,12 @@ As with DFS we can see the representation of the graph structure in multiple way
 
 ## AVL Trees
 
-Adelson-Velsky and Landis (**AVL**) trees are self-balancing binary search trees. 
+Adelson-Velsky and Landis (**AVL**) trees are self-balancing Binary Search Trees (BST), i.e:
 
 - 0-2 children per node.
 - Left child value < Parent value < Right child value.
 
-The distinction is that they maintain a balance condition to ensure that the heights of the two child subtrees of any node differ by at most one. This guarantees $O(\log n)$ time complexity for search, insert, and delete operations.
+The distinction from the standard BST is that they maintain a balance condition to ensure that the heights of the two child subtrees of any node differ by at most one. This guarantees $O(\log n)$ time complexity for search, insert, and delete operations.
 
 Balanced trees like AVL trees are crucial for maintaining efficient performance in dynamic datasets where frequent insertions and deletions occur.
 AVL trees are widely used in databases and file systems where fast lookups and updates are required.
