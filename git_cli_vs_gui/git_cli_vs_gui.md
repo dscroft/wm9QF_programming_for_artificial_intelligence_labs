@@ -17,9 +17,7 @@ estimated_time_in_minutes: 30
 @pre_reqs
 Learners should know what version control is and why it's important and should also understand what a command line interface is and how that's different from a graphical user interface.  
 
-To acquire basic knowledge of version control, we recommend our [Introduction to Version Control](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/git_intro/git_intro.md#1) module. 
-
-To acquire basic knowledge about command line interfaces, we recommend our [Demystifying the Command Line Interface](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/demystifying_command_line/demystifying_command_line.md#1) module.  
+To acquire basic knowledge of version control, we recommend our Introduction to Version Control module. 
 
 No previous experience with git is required.
 @end
@@ -90,6 +88,16 @@ import: ../module_templates/macros.md
 # Git Command Line Interface versus Graphical User Interface
 
 @overview
+
+<div class = "gratitude">
+@boxheader(Thank you!)
+
+Credit for the original versions and origin of these materials is given to the [Data and Analytics for Research Training (DART) Program](https://arcus.github.io/education_modules/) and the [Children's Hospital of Philadelphia (CHOP) Research Institute](https://www.research.chop.edu/).
+
+<!-- style="max-width: 300px; margin: auto;" -->
+![](https://github.com/arcus/education_modules/raw/main/assets/media/chop-logo.svg)
+
+</div>
 
 ## What is Git?
 
@@ -373,12 +381,13 @@ Which of the following is a Git GUI (or Git client) that you've seen used in thi
 
 [( )] GitDesk 
 [( )] DesktopGit
-[(X)] GitHub Desktop
+[(X)] Visual Studio Code
+[( )] GitHub Desktop
 [( )] GitToIt
 ***
 <div class = "answer">
 
-That's right!  There are many Git GUIs available, and we showed GitHub Desktop, a popular Git graphical user interface, in our screenshots comparing GUI to CLI use in Git.
+That's right!  There are many Git GUIs available, and we showed Visual Studio Code, in our screenshots comparing GUI to CLI use in Git.
 
 </div>
 ***

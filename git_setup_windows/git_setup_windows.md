@@ -18,7 +18,7 @@ estimated_time_in_minutes: 25
 
 @pre_reqs
 
-- Have used a [command line interface (CLI)](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/demystifying_command_line/demystifying_command_line.md#1) on your computer before
+- Have used a command line interface (CLI) on your computer before
 - Have an account on github.com (you can [sign up now](https://github.com/signup) if you haven't yet --- it's free)
 
 @end

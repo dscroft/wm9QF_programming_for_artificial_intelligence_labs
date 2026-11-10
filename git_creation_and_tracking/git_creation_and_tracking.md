@@ -18,9 +18,9 @@ estimated_time_in_minutes: 60
 @pre_reqs
 Before you start this module, make sure you
 
-- Know how to [access a command line interface (CLI) on your computer](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/demystifying_command_line/demystifying_command_line.md#1).
-- Have Git configured on your computer. If Git is not yet configured, see the module on setting up Git on a [Mac, Linux](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/git_setup_mac_and_linux/git_setup_mac_and_linux.md#1), or [Windows](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/git_setup_windows/git_setup_windows.md#1) machine.
-- Can edit plain text `.txt` documents. A text editor is different from a word processor (i.e. Microsoft Word or Google Docs), in that text editors create files that consist only of text, no formatting at all. Here is a [tutorial on editing text files using `nano`](https://swcarpentry.github.io/shell-novice/03-create.html#create-a-text-file), one of many text editors that you can access directly from the command line interface (CLI).
+- Know how to access a command line interface (CLI) on your computer.
+- Have Git configured on your computer. If Git is not yet configured, see the module on setting up Git on a Mac, Linux or Windows machine.
+- Can edit plain text `.txt` documents. A text editor is different from a word processor (i.e. Microsoft Word or Google Docs), in that text editors create files that consist only of text, no formatting at all. 
 @end
 
 @learning_objectives
@@ -62,6 +62,7 @@ previous_sequential_module: git_setup_mac_and_linux, git_setup_windows
 
 link:  ../assets/styles.css
 import: ../module_templates/macros.md
+import: https://raw.githubusercontent.com/dscroft/mermaid_template/refs/heads/master/README.md
 -->
 
 # Creating a Git Repository
@@ -93,8 +94,6 @@ If you are on computer that uses the Windows operating system, make sure you are
 </div>
 
 If you are not sure if Git is configured on your computer, enter `git config user.name` into your command line interface and see if it returns your name. You can also check that it it has the correct email for you with `git config user.email`. If these are correct you are all ready to start the module!
-
-If you need to get Git configured on your computer there is a module to help you get set up.  Depending on what computer you are using, use the instructions for a [Mac or Linux operating system](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/git_setup_mac_and_linux/git_setup_mac_and_linux.md#1), or a [Windows operating system](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/git_setup_windows/git_setup_windows.md#1)
 
 ## Creating a Repository
 
@@ -275,13 +274,13 @@ $ git init       # make the moons subdirectory a Git repository
 $ ls -a          # ensure the .git subdirectory is present indicating we have created a new Git repository
 ```
 
-<!-- style = "max-width:300px;" -->
-```ascii
-~/Desktop
- |-- planets
- |   |-- .git
- |   |-- moons
- |       |-- .git
+```mermaid @mermaid
+treeView-beta
+~/Desktop/
+└── planets/
+|   └── .git/
+|   └── moons/
+|   |   └── .git/
 ```
 
 Is the `git init` command, run inside the `moons` subdirectory, required for
@@ -761,6 +760,8 @@ What if we have files that we do not want Git to track for us, like backup files
 
 It is likely that you will eventually share your repository.  This could be sharing it privately with a team, or publicly through [GitHub](https://github.com). When you do, everything that Git is tracking will become visible to everyone with access to the repository.  If there is an API key, password, sensitive data, or anything that requires any level of secrecy, make sure you tell Git to ignore it as soon as you create the file.
 
+This happens with concerns regularity, even to [organisations that know better](https://www.theregister.com/security/2026/05/19/americas-top-cyber-defense-agency-left-a-github-repo-open-with-passwords-keys-tokens-and-incredibly-obvious-filenames/5242915).
+
 Once information is committed and made public ("pushed" to GitHub), a record of it will persist even if you remove it in a later commit.
 
 </div>
@@ -1077,9 +1078,6 @@ The correct command is `git remote add origin <remote-url>`.
 
 This module was based on examples from three of [Software Carpentry](https://software-carpentry.org)'s [lessons on using Git](https://swcarpentry.github.io/git-novice/). The story of Dracula and Wolfman's planned trip to Mars is borrowed from them, and more examples are available in the original lessons:
 
- - Lesson 3: [Creating a Repository](https://swcarpentry.github.io/git-novice/03-create.html)
- - Lesson 4: [Tracking Changes](https://swcarpentry.github.io/git-novice/04-changes.html)
- - Lesson 6: [Ignoring Things](https://swcarpentry.github.io/git-novice/06-ignore.html)
 
 ## Recap
 
