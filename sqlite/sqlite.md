@@ -211,50 +211,6 @@ import: ../module_templates/macros_sql.md
 
 -->
 
-# Demo
-
-```python
-import sqlite3
-
-con = sqlite3.connect(":memory:")
-con.execute("CREATE TABLE demo (value TEXT UNIQUE);")
-
-try:
-  with con:
-    con.execute("INSERT INTO demo VALUES ('example1');")
-    con.execute("INSERT INTO demo VALUES ('example2');")
-    con.execute("INSERT INTO demo VALUES ('example1');")
-except sqlite3.IntegrityError as e:
-    print(f"Error while inserting: {e}")
-
-with con:
-    print("Table contents: ")
-    print(con.execute("SELECT * FROM demo;").fetchall())
-
-con.close()
-```
-@Pyodide.eval
-
-
-```python
-import sqlite3
-
-con = sqlite3.connect(":memory:")
-
-cur1 = con.cursor()
-cur2 = con.cursor()
-
-cur1.execute("CREATE TABLE demo (value TEXT);")
-cur1.execute("INSERT INTO demo VALUES ('example1');")
-cur1.execute("INSERT INTO demo VALUES ('example2');")
-cur1.execute("INSRT INTO demo VALUES ('example3');")
-
-print( cur2.execute("SELECT * FROM demo;").fetchall() )
-
-con.close()
-```
-@Pyodide.eval
-
 
 # SQL and Python
 
